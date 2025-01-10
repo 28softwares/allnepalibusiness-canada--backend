@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsPhoneNumber,
   IsString,
+  IsUUID,
   IsUrl,
 } from "class-validator";
 
@@ -32,7 +33,7 @@ export class SocialHandlesDTO {
   youtube: string;
 }
 
-export class CreateBusinessDTO {
+export class UpdateBusinessDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -44,12 +45,10 @@ export class CreateBusinessDTO {
   @IsEnum(BusinessType)
   type: BusinessType;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUUID()
   registrationDocument: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsUUID()
   ownerIDDocument: string;
 
   @IsString()
@@ -76,10 +75,10 @@ export class CreateBusinessDTO {
   @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsUUID()
   logo: string;
 
-  @IsNotEmpty()
+  @IsUUID()
   cover: string;
 
   @IsOptional()

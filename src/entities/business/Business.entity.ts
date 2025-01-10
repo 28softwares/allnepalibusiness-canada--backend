@@ -61,6 +61,14 @@ export class Business extends CommonSchema {
     linkedin: string;
   };
 
+  @Column({ type: "json", nullable: true })
+  actionByAdmin: [
+    { status: "REVIEW" | "APPROVED" | "REJECTED"; reason: string; date: Date }
+  ];
+
+  @Column({ type: "boolean", nullable: true })
+  status: "ACTIVE" | "INACTIVE";
+
   @OneToOne(() => User, (user) => user.business)
   owner: User;
 }

@@ -1,15 +1,7 @@
+import app from "./config/app.config";
 import express, { json, urlencoded } from "express";
 import AppDataSource from "./config/database.config";
 import { RegisterRoutes } from "./routes/routes";
-
-const app = express();
-app.use(
-  urlencoded({
-    extended: true,
-  })
-);
-app.use(json());
-RegisterRoutes(app);
 
 AppDataSource.initialize()
   .then(() => {

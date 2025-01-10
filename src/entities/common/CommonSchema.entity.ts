@@ -7,7 +7,6 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-@Entity()
 export class CommonSchema extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;

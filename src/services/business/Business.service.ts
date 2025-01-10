@@ -3,6 +3,10 @@ import { Business } from "../../entities/business/Business.entity";
 import { Media } from "../../entities/media/Media.entity";
 
 class BusinessService {
+  async get() {
+    return await Business.find();
+  }
+
   async create(data: CreateBusinessDTO) {
     const business = new Business();
     business.name = data.name;

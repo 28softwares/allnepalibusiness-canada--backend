@@ -16,6 +16,32 @@ const multer = require('multer');
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "BusinessType": {
+        "dataType": "refEnum",
+        "enums": ["INSURANCE","FINANCE","HEALTHCARE","TECHNOLOGY","RETAIL","WHOLESALE"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "CreateBusinessDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "type": {"ref":"BusinessType","required":true},
+            "registrationDocument": {"dataType":"string","required":true},
+            "ownerIDDocument": {"dataType":"string","required":true},
+            "provinceTerritory": {"dataType":"string","required":true},
+            "city": {"dataType":"string","required":true},
+            "postalCode": {"dataType":"string","required":true},
+            "phone": {"dataType":"string","required":true},
+            "website": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "logo": {"dataType":"string","required":true},
+            "cover": {"dataType":"string","required":true},
+            "socialHandles": {"dataType":"nestedObjectLiteral","nestedProperties":{"youtube":{"dataType":"string","required":true},"linkedin":{"dataType":"string","required":true},"twitter":{"dataType":"string","required":true},"instagram":{"dataType":"string","required":true},"facebook":{"dataType":"string","required":true}},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"throw-on-extras","bodyCoercion":true});
 
@@ -72,8 +98,9 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsBusinessController_getBusiness: Record<string, TsoaRoute.ParameterSchema> = {
+                req: {"in":"request","name":"req","required":true,"dataType":"object"},
         };
-        app.get('/business/getBusiness',
+        app.get('/business',
             ...(fetchMiddlewares<RequestHandler>(BusinessController)),
             ...(fetchMiddlewares<RequestHandler>(BusinessController.prototype.getBusiness)),
 
@@ -89,6 +116,36 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
 
               await templateService.apiHandler({
                 methodName: 'getBusiness',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsBusinessController_createBusiness: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"ref":"CreateBusinessDTO"},
+        };
+        app.post('/business',
+            ...(fetchMiddlewares<RequestHandler>(BusinessController)),
+            ...(fetchMiddlewares<RequestHandler>(BusinessController.prototype.createBusiness)),
+
+            async function BusinessController_createBusiness(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsBusinessController_createBusiness, request, response });
+
+                const controller = new BusinessController();
+
+              await templateService.apiHandler({
+                methodName: 'createBusiness',
                 controller,
                 response,
                 next,
