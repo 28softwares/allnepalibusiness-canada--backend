@@ -11,24 +11,43 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.10.2",
+    "@types/swagger-ui-express": "^4.1.7",
+    "swagger-ui-express": "^5.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2",
     "winston": "^3.17.0"
   },
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/nodemailer": "^6.4.17",
+    "bcryptjs": "^3.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "compression": "^1.8.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "jsonwebtoken": "^9.0.2",
     "multer": "1.4.4",
+    "nodemailer": "^6.10.0",
     "pg": "^8.13.1",
     "tsoa": "^6.6.0",
     "typeorm": "^0.3.20",
     "typeorm-naming-strategies": "^4.1.0"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "@scarf/scarf"
+    ]
   }
 }

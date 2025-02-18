@@ -1,5 +1,5 @@
 import { AfterLoad, Column, Entity, OneToOne } from "typeorm";
-import { CommonSchema } from "../common/CommonSchema.entity";
+import { CommonEntity } from "../common/CommonSchema.entity";
 import { Business } from "../business/Business.entity";
 
 export enum MediaType {
@@ -10,7 +10,7 @@ export enum MediaType {
 }
 
 @Entity()
-export class Media extends CommonSchema {
+export class Media extends CommonEntity{
   @Column()
   mimeType: string;
 

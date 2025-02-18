@@ -1,5 +1,5 @@
 import { Column, Entity, OneToOne } from "typeorm";
-import { CommonSchema } from "../common/CommonSchema.entity";
+import { CommonEntity } from "../common/CommonSchema.entity";
 import { Media } from "../media/Media.entity";
 import { User } from "../user/User.entity";
 
@@ -13,7 +13,7 @@ export enum BusinessType {
 }
 
 @Entity()
-export class Business extends CommonSchema {
+export class Business extends CommonEntity {
   @Column()
   name: string;
 
@@ -53,7 +53,7 @@ export class Business extends CommonSchema {
   @OneToOne(() => Media, (media) => media.businessCover)
   cover: Media;
 
-  @Column({ nullable: true, type: "json" })
+  @Column({ nullable: true, type: "jsonb" })
   socialHandles: {
     facebook: string;
     twitter: string;
