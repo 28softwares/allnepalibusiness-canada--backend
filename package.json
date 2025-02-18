@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts"
+    "start:dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,8 @@
     "@types/multer": "^1.4.12",
     "@types/node": "^22.10.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "winston": "^3.17.0"
   },
   "dependencies": {
     "@tsoa/runtime": "^6.6.0",
