@@ -48,10 +48,3 @@ const errorHandler = (
     });
 };
 export default errorHandler;
-
-// /media [{name:"am.jpg","type":"image/jpeg","id":"123213"}]
-// /rental POST
-//  {
-//    "mediaId":"123213",
-//    "rentalName":"My Rental",
-// }

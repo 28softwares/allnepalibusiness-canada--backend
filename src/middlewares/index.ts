@@ -1,10 +1,10 @@
-import express, { urlencoded } from 'express';
-import swaggerUi from 'swagger-ui-express';
+import express, { Response as ExResponse, Request as ExRequest, urlencoded } from "express";
 import { RegisterRoutes } from '../routes/routes';
 import errorHandler from './errorHandler.middlware';
 import { DotEnvConfig, Environment } from '../config/dotenv.config';
 import cors from 'cors';
-import swaggerDocument from '../../public/swagger.json';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from "../../public/swagger/swagger.json"
 import compression from 'compression';
 import { rateLimit } from 'express-rate-limit';
 import cookieParser from "cookie-parser"
@@ -34,12 +34,14 @@ export const configMiddleware = (app: express.Application) => {
         }),
     );
 
-    if (DotEnvConfig.NODE_ENV === Environment.DEVELOPMENT) {
-        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-        app.use('/swagger.json', (req, res) => res.send(swaggerDocument));
-    }
     app.use(express.static(DotEnvConfig.MEDIA_UPLOAD_PATH!));
     app.use(express.static(DotEnvConfig.TEMP_FOLDER_PATH!));
     RegisterRoutes(app);
+    if (DotEnvConfig.NODE_ENV === Environment.DEVELOPMENT) {
+        app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+        app.get('/docs/swagger.json', (req, res) => {
+            res.sendFile(__dirname + '/public/swagger/swagger.json'); // Adjust the path as necessary
+        });
+    }
     app.use(errorHandler)
 };

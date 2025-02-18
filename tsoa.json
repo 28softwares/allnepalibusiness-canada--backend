@@ -1,12 +1,30 @@
 {
-  "entryFile": "src/index.ts",
+  "entryFile": "src/server.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
-  "controllerPathGlobs": ["src/controllers/*.ts", "src/controllers/**/*.ts"],
+  "controllerPathGlobs": [
+    "src/controllers/**/*.controller.ts",
+    "src/controllers/*.controller.ts",
+    "src/controllers/v1/*.controller.ts",
+    "src/controllers/v2/*.controller.ts"
+  ],
   "spec": {
-    "outputDirectory": "build",
-    "specVersion": 3
+    "outputDirectory": "public",
+    "specVersion": 3,
+    "spec": {
+      "servers": [
+        {
+          "url": "http://localhost:8000/api/v1",
+          "description": "Development server"
+        },
+        {
+          "url": "https://allnepalibusiness/api/v1",
+          "description": "prouduction server"
+        }
+      ]
+    }
   },
   "routes": {
-    "routesDir": "./src/routes"
+    "routesDir": "src/routes",
+    "basePath": "/api/v1"
   }
 }

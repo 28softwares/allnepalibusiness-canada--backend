@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts",
-    "dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "tsoa spec-and-routes && ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsoa spec-and-routes && tsc",
+    "start": "node build/src/index.js"
   },
   "keywords": [],
   "author": "",
