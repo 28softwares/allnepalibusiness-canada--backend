@@ -1,6 +1,6 @@
 import express, { Response as ExResponse, Request as ExRequest, urlencoded } from "express";
 import { RegisterRoutes } from '../routes/routes';
-import errorHandler from './errorHandler.middlware';
+import errorHandler from "./errorHandler.middleware";
 import { DotEnvConfig, Environment } from '../config/dotenv.config';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
@@ -36,12 +36,12 @@ export const configMiddleware = (app: express.Application) => {
 
     app.use(express.static(DotEnvConfig.MEDIA_UPLOAD_PATH!));
     app.use(express.static(DotEnvConfig.TEMP_FOLDER_PATH!));
-    RegisterRoutes(app);
     if (DotEnvConfig.NODE_ENV === Environment.DEVELOPMENT) {
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
         app.get('/docs/swagger.json', (req, res) => {
             res.sendFile(__dirname + '/public/swagger/swagger.json'); // Adjust the path as necessary
         });
     }
+    RegisterRoutes(app);
     app.use(errorHandler)
 };

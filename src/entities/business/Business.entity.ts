@@ -12,6 +12,14 @@ export enum BusinessType {
   WHOLESALE = "WHOLESALE",
 }
 
+//owner id document type
+export enum OwnerIdType {
+  PASSPORT = "PASSPORT",
+  DRIVERS_LICENSE = "DRIVERS_LICENSE",
+  NATIONAL_ID = "NATIONAL_ID",
+  OTHER = "OTHER",
+}
+
 @Entity()
 export class Business extends CommonEntity {
   @Column()
@@ -27,7 +35,7 @@ export class Business extends CommonEntity {
   registrationDocument: Media;
 
   @OneToOne(() => Media, (media) => media.ownerId)
-  ownerIdDocument: Media;
+  ownerIdDocument: OwnerIdType;
 
   @Column()
   provinceTerritory: string;
@@ -36,7 +44,7 @@ export class Business extends CommonEntity {
   city: string;
 
   @Column()
-  postalcode: string;
+  postalCode: string;
 
   @Column()
   phone: string;
@@ -45,7 +53,7 @@ export class Business extends CommonEntity {
   website: string;
 
   @Column()
-  description: string; // business description
+  description: string; 
 
   @OneToOne(() => Media, (media) => media.businessLogo)
   logo: Media;
