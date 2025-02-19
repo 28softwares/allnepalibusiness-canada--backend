@@ -20,7 +20,7 @@ const multer = require('multer');
 const models: TsoaRoute.Models = {
     "MediaType": {
         "dataType": "refEnum",
-        "enums": ["PROFILE_IMAGE","PRODUCT_IMAGE","CAROUSEL_IMAGE","STORE_LOGO","RENTAL_IMAGE","BLOG_THUMBNAIL","VERIFICATION_ID","BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT"],
+        "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT","PASSPORT","DRIVERS_LICENSE","NATIONAL_ID","OTHER"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Media": {

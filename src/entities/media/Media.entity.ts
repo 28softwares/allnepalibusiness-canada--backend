@@ -2,17 +2,18 @@ import { AfterLoad, Column, Entity, OneToOne } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
 import { Business } from "../business/Business.entity";
 import { MediaType } from "../../constants/appConstants";
+import { DotEnvConfig } from "../../config/dotenv.config";
 
 
 @Entity()
-export class Media extends CommonEntity{
+export class Media extends CommonEntity {
   @Column()
   mimeType: string;
 
   @Column()
   name: string;
 
-  @Column({ type: "enum", enum: MediaType})
+  @Column({ type: "enum", enum: MediaType })
   type: MediaType;
 
   @OneToOne(() => Business, (business) => business.registrationDocument)
@@ -29,6 +30,6 @@ export class Media extends CommonEntity{
 
   @AfterLoad()
   updateMediaPath() {
-    this.name = `http://localhost:4000/public/uploads/${this.name}`;
+    this.name = `${DotEnvConfig.BASE_URL}/public/uploads/${this.name}`;
   }
 }

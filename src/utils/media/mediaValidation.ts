@@ -7,22 +7,11 @@ class MediaValidate {
         let acceptedFileSize: number = 0;
 
         switch (mediaType) {
-            case MediaType.PRODUCT_IMAGE:
-            case MediaType.CAROUSEL_IMAGE:
-                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
-                acceptedFileSize = 1024 * 1024 * 2; // 2 MB
-                break;
-
-            case MediaType.STORE_LOGO:
-                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
-                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
-                break;
-
             case MediaType.BUSINESS_COVER:
                 acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
-
                 break;
+
             case MediaType.BUSINESS_REGISTRATION:
                 acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
@@ -34,16 +23,6 @@ class MediaValidate {
                 break;
 
             case MediaType.BUSINESS_LOGO:
-                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
-                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
-                break;
-
-            case MediaType.PROFILE_IMAGE:
-                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
-                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
-                break;
-
-            case MediaType.BLOG_THUMBNAIL:
                 acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
                 break;

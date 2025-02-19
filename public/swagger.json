@@ -9,17 +9,14 @@
 		"schemas": {
 			"MediaType": {
 				"enum": [
-					"PROFILE_IMAGE",
-					"PRODUCT_IMAGE",
-					"CAROUSEL_IMAGE",
-					"STORE_LOGO",
-					"RENTAL_IMAGE",
-					"BLOG_THUMBNAIL",
-					"VERIFICATION_ID",
 					"BUSINESS_LOGO",
 					"BUSINESS_COVER",
 					"BUSINESS_REGISTRATION",
-					"OWNER_IDENTIFICATION_DOCUMENT"
+					"OWNER_IDENTIFICATION_DOCUMENT",
+					"PASSPORT",
+					"DRIVERS_LICENSE",
+					"NATIONAL_ID",
+					"OTHER"
 				],
 				"type": "string"
 			},

@@ -34,8 +34,8 @@ export class Business extends CommonEntity {
   @OneToOne(() => Media, (media) => media.businessRegistration)
   registrationDocument: Media;
 
-  @OneToOne(() => Media, (media) => media.ownerId)
-  ownerIdDocument: OwnerIdType;
+  // @OneToOne(() => Media, (media) => media.ownerId)
+  ownerIdDocument: string;
 
   @Column()
   provinceTerritory: string;
@@ -53,7 +53,7 @@ export class Business extends CommonEntity {
   website: string;
 
   @Column()
-  description: string; 
+  description: string;
 
   @OneToOne(() => Media, (media) => media.businessLogo)
   logo: Media;

@@ -1,3 +1,4 @@
+import { MediaType } from "../../constants/appConstants";
 import { CreateBusinessDTO } from "../../dtos/business/Business.dto";
 import { Business } from "../../entities/business/Business.entity";
 import { Media } from "../../entities/media/Media.entity";
@@ -22,11 +23,12 @@ class BusinessService {
     const ownerIDDoc = await Media.findOne({
       where: {
         ownerId: data.ownerIDDocument,
+        type: MediaType.OWNER_IDENTIFICATION_DOCUMENT,
       },
     });
 
-    // if (!ownerIDDoc) return { message: "Owner ID document not found" };
-    // business.ownerIdDocument = ownerIDDoc;
+    if (!ownerIDDoc) return { message: "Owner ID document not found" };
+    business.ownerIdDocument = ownerIDDoc.id;
 
     business.provinceTerritory = data.provinceTerritory;
     business.city = data.city;
