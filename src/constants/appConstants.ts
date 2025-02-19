@@ -1,6 +1,5 @@
 export default {
-    APP_NAME: 'All Nepali Businesses in Canada',
-
+    APP_NAME: 'Nepali Business in Canada',
     // Pagination
     DEFAULT_PAGE: 1,
     DEFAULT_LIMIT: 30,
@@ -10,12 +9,6 @@ export enum Environment {
     DEVELOPMENT = 'DEVELOPMENT',
     PRODUCTION = 'PRODUCTION',
     TEST = 'TEST',
-}
-
-export enum VerificationDocumentType {
-    UTILITY_BILL = 'UTILITY_BILL',
-    PHONE_INTERNET_BILL = 'PHONE/INTERNET_BILL',
-    GOVERNMENT_OFFICIAL_DOCUMENT = 'GOVERNMENT_OFFICIAL_DOCUMENT',
 }
 
 export enum UserLoginType {
@@ -28,6 +21,9 @@ export enum MediaType {
     BUSINESS_COVER = "BUSINESS_COVER",
     BUSINESS_REGISTRATION = "BUSINESS_REGISTRATION",
     OWNER_IDENTIFICATION_DOCUMENT = "OWNER_IDENTIFICATION_DOCUMENT",
+}
+
+export enum VerificationDocumentType {
     PASSPORT = "PASSPORT",
     DRIVERS_LICENSE = "DRIVERS_LICENSE",
     NATIONAL_ID = "NATIONAL_ID",

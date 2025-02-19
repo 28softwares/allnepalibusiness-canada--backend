@@ -3,7 +3,7 @@ import { CommonEntity } from "../common/CommonSchema.entity";
 import { Media } from "../media/Media.entity";
 import { User } from "../user/User.entity";
 
-export enum BusinessType {
+export enum BusinessCategory {
   INSURANCE = "INSURANCE",
   FINANCE = "FINANCE",
   HEALTHCARE = "HEALTHCARE",
@@ -23,43 +23,35 @@ export enum OwnerIdType {
 @Entity()
 export class Business extends CommonEntity {
   @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column({ type: "enum", enum: BusinessType })
-  type: BusinessType;
-
-  @OneToOne(() => Media, (media) => media.businessRegistration)
-  registrationDocument: Media;
-
-  // @OneToOne(() => Media, (media) => media.ownerId)
-  ownerIdDocument: string;
-
-  @Column()
-  provinceTerritory: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  postalCode: string;
-
-  @Column()
-  phone: string;
-
-  @Column({ nullable: true })
-  website: string;
+  businessName: string;
 
   @Column()
   description: string;
 
-  @OneToOne(() => Media, (media) => media.businessLogo)
-  logo: Media;
+  @Column({ type: "enum", enum: BusinessCategory })
+  category: BusinessCategory;
 
-  @OneToOne(() => Media, (media) => media.businessCover)
-  cover: Media;
+
+  @Column()
+  website: string;
+
+  @Column({
+    type: "jsonb",
+  })
+  address: {
+    street: string;
+    city: string;
+      province: string;
+      postalCode: string;
+    }
+
+  @Column({
+    type: "jsonb",
+  })
+  businessContactInformation: {
+    phone: string;
+    email: string;
+  };
 
   @Column({ nullable: true, type: "jsonb" })
   socialHandles: {
@@ -68,6 +60,15 @@ export class Business extends CommonEntity {
     instagram: string;
     linkedin: string;
   };
+
+  @OneToOne(() => Media, (media) => media.businessLogo)
+  logo: Media;
+
+  @OneToOne(() => Media, (media) => media.businessCover)
+  coverImage: Media;
+
+  @OneToOne(() => Media, (media) => media.businessRegistrationDocument)
+  businessRegistrationDocument: string;
 
   @OneToOne(() => User, (user) => user.business)
   owner: User;

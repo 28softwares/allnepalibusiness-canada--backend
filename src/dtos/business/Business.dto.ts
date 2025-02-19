@@ -1,14 +1,15 @@
 import {
   IsEmail,
   IsEnum,
+  IsJSON,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   IsUrl,
 } from "class-validator";
 
-import { BusinessType } from "../../entities/business/Business.entity";
+import { BusinessCategory } from "../../entities/business/Business.entity";
+import { User } from "../../entities/user/User.entity";
 
 export class SocialHandlesDTO {
   @IsOptional()
@@ -32,29 +33,23 @@ export class SocialHandlesDTO {
   youtube: string;
 }
 
-export class CreateBusinessDTO {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
 
-  @IsNotEmpty()
+export class ContactInformationDTO {
+  @IsOptional()
+  @IsString()
+  phone: string;
+
+  @IsOptional()
+  @IsString()
   @IsEmail()
   email: string;
+}
 
-  @IsEnum(BusinessType)
-  type: BusinessType;
 
+export class AddressDTO {
   @IsString()
   @IsNotEmpty()
-  registrationDocument: string;
-
-  @IsString()
-  @IsNotEmpty()
-  ownerIDDocument: string;
-
-  @IsString()
-  @IsNotEmpty()
-  provinceTerritory: string;
+  street: string;
 
   @IsString()
   @IsNotEmpty()
@@ -62,25 +57,57 @@ export class CreateBusinessDTO {
 
   @IsString()
   @IsNotEmpty()
+  province: string;
+
+  @IsString()
   postalCode: string;
-
-  @IsPhoneNumber()
+}
+export class CreateBusinessDTO {
+  @IsString()
   @IsNotEmpty()
-  phone: string;
-
-  @IsOptional()
-  @IsUrl()
-  website: string;
+  name: string;
 
   @IsOptional()
   @IsString()
   description: string;
 
+  @IsEnum(BusinessCategory)
+  category: BusinessCategory;
+
+  @IsOptional()
+  @IsUrl()
+  website: string;
+
+  @IsNotEmpty()
+  @IsJSON()
+  @Object(() => ContactInformationDTO)
+  businessContactInformation: {
+    phone: string;
+    email: string;
+  };
+
+  @IsJSON()
+  @IsNotEmpty()
+  @Object(() => AddressDTO)
+  address: {
+    street: string;
+    city: string;
+    province: string;
+    postalCode: string;
+  };
+
+  @IsString()
+  @IsNotEmpty()
+  registrationDocumentId: string;
+
   @IsNotEmpty()
   logo: string;
 
   @IsNotEmpty()
-  cover: string;
+  coverImage: string;
+
+  @IsNotEmpty()
+  owner: User;
 
   @IsOptional()
   @Object(() => SocialHandlesDTO)

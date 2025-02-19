@@ -3,6 +3,7 @@ import { CommonEntity } from "../common/CommonSchema.entity";
 import { Business } from "../business/Business.entity";
 import { MediaType } from "../../constants/appConstants";
 import { DotEnvConfig } from "../../config/dotenv.config";
+import { User } from "../user/User.entity";
 
 
 @Entity()
@@ -16,17 +17,17 @@ export class Media extends CommonEntity {
   @Column({ type: "enum", enum: MediaType })
   type: MediaType;
 
-  @OneToOne(() => Business, (business) => business.registrationDocument)
-  businessRegistration: string;
+  @OneToOne(() => Business, (business) => business.businessRegistrationDocument)
+  businessRegistrationDocument: string;
 
   @OneToOne(() => Business, (business) => business)
   businessLogo: string;
 
-  @OneToOne(() => Business, (business) => business.ownerIdDocument)
-  ownerId: string;
-
-  @OneToOne(() => Business, (business) => business.cover)
+  @OneToOne(() => Business, (business) => business.coverImage)
   businessCover: string;
+
+  // @OneToOne(() => User, (user) => user.verificationDocument)
+  // ownerId: string;
 
   @AfterLoad()
   updateMediaPath() {

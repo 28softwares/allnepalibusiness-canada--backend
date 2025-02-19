@@ -20,7 +20,7 @@ const multer = require('multer');
 const models: TsoaRoute.Models = {
     "MediaType": {
         "dataType": "refEnum",
-        "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT","PASSPORT","DRIVERS_LICENSE","NATIONAL_ID","OTHER"],
+        "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Media": {
@@ -33,35 +33,144 @@ const models: TsoaRoute.Models = {
             "mimeType": {"dataType":"string","required":true},
             "name": {"dataType":"string","required":true},
             "type": {"ref":"MediaType","required":true},
-            "businessRegistration": {"dataType":"string","required":true},
+            "businessRegistrationDocument": {"dataType":"string","required":true},
             "businessLogo": {"dataType":"string","required":true},
-            "ownerId": {"dataType":"string","required":true},
             "businessCover": {"dataType":"string","required":true},
+            "ownerId": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "BusinessType": {
+    "BusinessCategory": {
         "dataType": "refEnum",
         "enums": ["INSURANCE","FINANCE","HEALTHCARE","TECHNOLOGY","RETAIL","WHOLESALE"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "VerificationDocumentType": {
+        "dataType": "refEnum",
+        "enums": ["PASSPORT","DRIVERS_LICENSE","NATIONAL_ID","OTHER"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "User": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "deletedAt": {"dataType":"datetime","required":true},
+            "username": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+            "verificationDocument": {"ref":"VerificationDocumentType","required":true},
+            "business": {"ref":"Business","required":true},
+            "token": {"dataType":"array","array":{"dataType":"refObject","ref":"Token"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Business": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "deletedAt": {"dataType":"datetime","required":true},
+            "businessName": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "category": {"ref":"BusinessCategory","required":true},
+            "website": {"dataType":"string","required":true},
+            "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"postalCode":{"dataType":"string","required":true},"province":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
+            "businessContactInformation": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"phone":{"dataType":"string","required":true}},"required":true},
+            "socialHandles": {"dataType":"nestedObjectLiteral","nestedProperties":{"linkedin":{"dataType":"string","required":true},"instagram":{"dataType":"string","required":true},"twitter":{"dataType":"string","required":true},"facebook":{"dataType":"string","required":true}},"required":true},
+            "logo": {"ref":"Media","required":true},
+            "coverImage": {"ref":"Media","required":true},
+            "businessRegistrationDocument": {"dataType":"string","required":true},
+            "owner": {"ref":"User","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "TokenEnum": {
+        "dataType": "refEnum",
+        "enums": ["REFRESH_TOKEN"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AdminPermission": {
+        "dataType": "refEnum",
+        "enums": ["CAROUSEL","PRODUCT","USERS","ORDERS","LOGS"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Role": {
+        "dataType": "refEnum",
+        "enums": ["ADMIN","USER","SUPER_ADMIN","NONE"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Token": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "deletedAt": {"dataType":"datetime","required":true},
+            "token": {"dataType":"string","required":true},
+            "type": {"ref":"TokenEnum","required":true},
+            "user": {"ref":"User","required":true},
+            "admin": {"ref":"Admin","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "LogAction": {
+        "dataType": "refEnum",
+        "enums": ["ADD_CAROUSEL","UPDATE_CAROUSEL","DELETE_CAROUSEL","ADD_PRODUCT","UPDATE_PRODUCT","DELETE_PRODUCT","ADD_CATEGORY","UPDATE_CATEGORY","DELETE_CATEGORY"],
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Admin": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "deletedAt": {"dataType":"datetime","required":true},
+            "name": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+            "permissions": {"dataType":"array","array":{"dataType":"refEnum","ref":"AdminPermission"},"required":true},
+            "phoneNumber": {"dataType":"string","required":true},
+            "isActive": {"dataType":"boolean","required":true},
+            "role": {"ref":"Role","required":true},
+            "token": {"dataType":"array","array":{"dataType":"refObject","ref":"Token"},"required":true},
+            "logs": {"dataType":"array","array":{"dataType":"refObject","ref":"Log"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Log": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"datetime","required":true},
+            "updatedAt": {"dataType":"datetime","required":true},
+            "deletedAt": {"dataType":"datetime","required":true},
+            "action": {"ref":"LogAction","required":true},
+            "actionBy": {"ref":"Admin","required":true},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "CreateBusinessDTO": {
         "dataType": "refObject",
         "properties": {
             "name": {"dataType":"string","required":true},
-            "email": {"dataType":"string","required":true},
-            "type": {"ref":"BusinessType","required":true},
-            "registrationDocument": {"dataType":"string","required":true},
-            "ownerIDDocument": {"dataType":"string","required":true},
-            "provinceTerritory": {"dataType":"string","required":true},
-            "city": {"dataType":"string","required":true},
-            "postalCode": {"dataType":"string","required":true},
-            "phone": {"dataType":"string","required":true},
-            "website": {"dataType":"string","required":true},
             "description": {"dataType":"string","required":true},
+            "category": {"ref":"BusinessCategory","required":true},
+            "website": {"dataType":"string","required":true},
+            "businessContactInformation": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"phone":{"dataType":"string","required":true}},"required":true},
+            "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"postalCode":{"dataType":"string","required":true},"province":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
+            "registrationDocumentId": {"dataType":"string","required":true},
             "logo": {"dataType":"string","required":true},
-            "cover": {"dataType":"string","required":true},
+            "coverImage": {"dataType":"string","required":true},
+            "owner": {"ref":"User","required":true},
             "socialHandles": {"dataType":"nestedObjectLiteral","nestedProperties":{"youtube":{"dataType":"string","required":true},"linkedin":{"dataType":"string","required":true},"twitter":{"dataType":"string","required":true},"instagram":{"dataType":"string","required":true},"facebook":{"dataType":"string","required":true}},"required":true},
         },
         "additionalProperties": false,

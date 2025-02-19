@@ -12,11 +12,7 @@
 					"BUSINESS_LOGO",
 					"BUSINESS_COVER",
 					"BUSINESS_REGISTRATION",
-					"OWNER_IDENTIFICATION_DOCUMENT",
-					"PASSPORT",
-					"DRIVERS_LICENSE",
-					"NATIONAL_ID",
-					"OTHER"
+					"OWNER_IDENTIFICATION_DOCUMENT"
 				],
 				"type": "string"
 			},
@@ -46,16 +42,16 @@
 					"type": {
 						"$ref": "#/components/schemas/MediaType"
 					},
-					"businessRegistration": {
+					"businessRegistrationDocument": {
 						"type": "string"
 					},
 					"businessLogo": {
 						"type": "string"
 					},
-					"ownerId": {
+					"businessCover": {
 						"type": "string"
 					},
-					"businessCover": {
+					"ownerId": {
 						"type": "string"
 					}
 				},
@@ -67,15 +63,15 @@
 					"mimeType",
 					"name",
 					"type",
-					"businessRegistration",
+					"businessRegistrationDocument",
 					"businessLogo",
-					"ownerId",
-					"businessCover"
+					"businessCover",
+					"ownerId"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"BusinessType": {
+			"BusinessCategory": {
 				"enum": [
 					"INSURANCE",
 					"FINANCE",
@@ -86,46 +82,444 @@
 				],
 				"type": "string"
 			},
-			"CreateBusinessDTO": {
+			"VerificationDocumentType": {
+				"enum": [
+					"PASSPORT",
+					"DRIVERS_LICENSE",
+					"NATIONAL_ID",
+					"OTHER"
+				],
+				"type": "string"
+			},
+			"User": {
 				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"verificationDocument": {
+						"$ref": "#/components/schemas/VerificationDocumentType"
+					},
+					"business": {
+						"$ref": "#/components/schemas/Business"
+					},
+					"token": {
+						"items": {
+							"$ref": "#/components/schemas/Token"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"username",
+					"email",
+					"password",
+					"verificationDocument",
+					"business",
+					"token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Business": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"businessName": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"category": {
+						"$ref": "#/components/schemas/BusinessCategory"
+					},
+					"website": {
+						"type": "string"
+					},
+					"address": {
+						"properties": {
+							"postalCode": {
+								"type": "string"
+							},
+							"province": {
+								"type": "string"
+							},
+							"city": {
+								"type": "string"
+							},
+							"street": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"postalCode",
+							"province",
+							"city",
+							"street"
+						],
+						"type": "object"
+					},
+					"businessContactInformation": {
+						"properties": {
+							"email": {
+								"type": "string"
+							},
+							"phone": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"email",
+							"phone"
+						],
+						"type": "object"
+					},
+					"socialHandles": {
+						"properties": {
+							"linkedin": {
+								"type": "string"
+							},
+							"instagram": {
+								"type": "string"
+							},
+							"twitter": {
+								"type": "string"
+							},
+							"facebook": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"linkedin",
+							"instagram",
+							"twitter",
+							"facebook"
+						],
+						"type": "object"
+					},
+					"logo": {
+						"$ref": "#/components/schemas/Media"
+					},
+					"coverImage": {
+						"$ref": "#/components/schemas/Media"
+					},
+					"businessRegistrationDocument": {
+						"type": "string"
+					},
+					"owner": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"businessName",
+					"description",
+					"category",
+					"website",
+					"address",
+					"businessContactInformation",
+					"socialHandles",
+					"logo",
+					"coverImage",
+					"businessRegistrationDocument",
+					"owner"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenEnum": {
+				"enum": [
+					"REFRESH_TOKEN"
+				],
+				"type": "string"
+			},
+			"AdminPermission": {
+				"enum": [
+					"CAROUSEL",
+					"PRODUCT",
+					"USERS",
+					"ORDERS",
+					"LOGS"
+				],
+				"type": "string"
+			},
+			"Role": {
+				"enum": [
+					"ADMIN",
+					"USER",
+					"SUPER_ADMIN",
+					"NONE"
+				],
+				"type": "string"
+			},
+			"Token": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"token": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/TokenEnum"
+					},
+					"user": {
+						"$ref": "#/components/schemas/User"
+					},
+					"admin": {
+						"$ref": "#/components/schemas/Admin"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"token",
+					"type",
+					"user",
+					"admin"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LogAction": {
+				"enum": [
+					"ADD_CAROUSEL",
+					"UPDATE_CAROUSEL",
+					"DELETE_CAROUSEL",
+					"ADD_PRODUCT",
+					"UPDATE_PRODUCT",
+					"DELETE_PRODUCT",
+					"ADD_CATEGORY",
+					"UPDATE_CATEGORY",
+					"DELETE_CATEGORY"
+				],
+				"type": "string"
+			},
+			"Admin": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
 					"name": {
 						"type": "string"
 					},
 					"email": {
 						"type": "string"
 					},
-					"type": {
-						"$ref": "#/components/schemas/BusinessType"
-					},
-					"registrationDocument": {
+					"password": {
 						"type": "string"
 					},
-					"ownerIDDocument": {
+					"permissions": {
+						"items": {
+							"$ref": "#/components/schemas/AdminPermission"
+						},
+						"type": "array"
+					},
+					"phoneNumber": {
 						"type": "string"
 					},
-					"provinceTerritory": {
+					"isActive": {
+						"type": "boolean"
+					},
+					"role": {
+						"$ref": "#/components/schemas/Role"
+					},
+					"token": {
+						"items": {
+							"$ref": "#/components/schemas/Token"
+						},
+						"type": "array"
+					},
+					"logs": {
+						"items": {
+							"$ref": "#/components/schemas/Log"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"name",
+					"email",
+					"password",
+					"permissions",
+					"phoneNumber",
+					"isActive",
+					"role",
+					"token",
+					"logs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Log": {
+				"properties": {
+					"id": {
 						"type": "string"
 					},
-					"city": {
-						"type": "string"
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
 					},
-					"postalCode": {
-						"type": "string"
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
-					"phone": {
-						"type": "string"
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
 					},
-					"website": {
+					"action": {
+						"$ref": "#/components/schemas/LogAction"
+					},
+					"actionBy": {
+						"$ref": "#/components/schemas/Admin"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"action",
+					"actionBy"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateBusinessDTO": {
+				"properties": {
+					"name": {
 						"type": "string"
 					},
 					"description": {
 						"type": "string"
 					},
+					"category": {
+						"$ref": "#/components/schemas/BusinessCategory"
+					},
+					"website": {
+						"type": "string"
+					},
+					"businessContactInformation": {
+						"properties": {
+							"email": {
+								"type": "string"
+							},
+							"phone": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"email",
+							"phone"
+						],
+						"type": "object"
+					},
+					"address": {
+						"properties": {
+							"postalCode": {
+								"type": "string"
+							},
+							"province": {
+								"type": "string"
+							},
+							"city": {
+								"type": "string"
+							},
+							"street": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"postalCode",
+							"province",
+							"city",
+							"street"
+						],
+						"type": "object"
+					},
+					"registrationDocumentId": {
+						"type": "string"
+					},
 					"logo": {
 						"type": "string"
 					},
-					"cover": {
+					"coverImage": {
 						"type": "string"
+					},
+					"owner": {
+						"$ref": "#/components/schemas/User"
 					},
 					"socialHandles": {
 						"properties": {
@@ -157,18 +551,15 @@
 				},
 				"required": [
 					"name",
-					"email",
-					"type",
-					"registrationDocument",
-					"ownerIDDocument",
-					"provinceTerritory",
-					"city",
-					"postalCode",
-					"phone",
-					"website",
 					"description",
+					"category",
+					"website",
+					"businessContactInformation",
+					"address",
+					"registrationDocumentId",
 					"logo",
-					"cover",
+					"coverImage",
+					"owner",
 					"socialHandles"
 				],
 				"type": "object",
