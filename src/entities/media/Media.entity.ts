@@ -1,13 +1,8 @@
 import { AfterLoad, Column, Entity, OneToOne } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
 import { Business } from "../business/Business.entity";
+import { MediaType } from "../../constants/appConstants";
 
-export enum MediaType {
-  BUSINESS_LOGO = "BUSINESS_LOGO",
-  BUSINESS_COVER = "BUSINESS_COVER",
-  BUSINESS_REGISTRATION = "BUSINESS_REGISTRATION",
-  OWNER_IDENTIFICATION_DOCUMENT = "OWNER_IDENTIFICATION_DOCUMENT",
-}
 
 @Entity()
 export class Media extends CommonEntity{
@@ -17,7 +12,7 @@ export class Media extends CommonEntity{
   @Column()
   name: string;
 
-  @Column({ type: "enum", enum: MediaType })
+  @Column({ type: "enum", enum: MediaType})
   type: MediaType;
 
   @OneToOne(() => Business, (business) => business.registrationDocument)

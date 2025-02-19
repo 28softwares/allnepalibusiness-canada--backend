@@ -2,7 +2,7 @@ import { MediaType } from '../../constants/appConstants';
 import { AppError } from '../appError.util';
 class MediaValidate {
     constructor(private error = AppError) { }
-    validate(fileLength: number, memetype: string, mediaType: MediaType) {
+    validate(fileLength: number, mimetype: string, mediaType: MediaType) {
         let acceptedExtensions: string[] = [];
         let acceptedFileSize: number = 0;
 
@@ -18,6 +18,26 @@ class MediaValidate {
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
                 break;
 
+            case MediaType.BUSINESS_COVER:
+                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
+
+                break;
+            case MediaType.BUSINESS_REGISTRATION:
+                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
+                break;
+
+            case MediaType.OWNER_IDENTIFICATION_DOCUMENT:
+                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
+                break;
+
+            case MediaType.BUSINESS_LOGO:
+                acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
+                acceptedFileSize = 1024 * 1024 * 1; // 1 MB
+                break;
+
             case MediaType.PROFILE_IMAGE:
                 acceptedExtensions = ['image/png', 'image/jpg', 'image/jpeg'];
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
@@ -28,7 +48,7 @@ class MediaValidate {
                 acceptedFileSize = 1024 * 1024 * 1; // 1 MB
                 break;
         }
-        if (!acceptedExtensions.includes(memetype)) {
+        if (!acceptedExtensions.includes(mimetype)) {
             throw this.error.badRequest(
                 'Invalid file extension. Allowed extensions are : ' +
                 acceptedExtensions.toString(),

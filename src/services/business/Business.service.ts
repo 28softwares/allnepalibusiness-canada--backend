@@ -25,12 +25,12 @@ class BusinessService {
       },
     });
 
-    if (!ownerIDDoc) return { message: "Owner ID document not found" };
-    business.ownerIdDocument = ownerIDDoc;
+    // if (!ownerIDDoc) return { message: "Owner ID document not found" };
+    // business.ownerIdDocument = ownerIDDoc;
 
     business.provinceTerritory = data.provinceTerritory;
     business.city = data.city;
-    business.postalcode = data.postalCode;
+    business.postalCode = data.postalCode;
     business.phone = data.phone;
     business.website = data.website;
     business.description = data.description;

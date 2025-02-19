@@ -7,6 +7,176 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"MediaType": {
+				"enum": [
+					"PROFILE_IMAGE",
+					"PRODUCT_IMAGE",
+					"CAROUSEL_IMAGE",
+					"STORE_LOGO",
+					"RENTAL_IMAGE",
+					"BLOG_THUMBNAIL",
+					"VERIFICATION_ID",
+					"BUSINESS_LOGO",
+					"BUSINESS_COVER",
+					"BUSINESS_REGISTRATION",
+					"OWNER_IDENTIFICATION_DOCUMENT"
+				],
+				"type": "string"
+			},
+			"Media": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"deletedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"mimeType": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/MediaType"
+					},
+					"businessRegistration": {
+						"type": "string"
+					},
+					"businessLogo": {
+						"type": "string"
+					},
+					"ownerId": {
+						"type": "string"
+					},
+					"businessCover": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"updatedAt",
+					"deletedAt",
+					"mimeType",
+					"name",
+					"type",
+					"businessRegistration",
+					"businessLogo",
+					"ownerId",
+					"businessCover"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BusinessType": {
+				"enum": [
+					"INSURANCE",
+					"FINANCE",
+					"HEALTHCARE",
+					"TECHNOLOGY",
+					"RETAIL",
+					"WHOLESALE"
+				],
+				"type": "string"
+			},
+			"CreateBusinessDTO": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"type": {
+						"$ref": "#/components/schemas/BusinessType"
+					},
+					"registrationDocument": {
+						"type": "string"
+					},
+					"ownerIDDocument": {
+						"type": "string"
+					},
+					"provinceTerritory": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"postalCode": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"website": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"logo": {
+						"type": "string"
+					},
+					"cover": {
+						"type": "string"
+					},
+					"socialHandles": {
+						"properties": {
+							"youtube": {
+								"type": "string"
+							},
+							"linkedin": {
+								"type": "string"
+							},
+							"twitter": {
+								"type": "string"
+							},
+							"instagram": {
+								"type": "string"
+							},
+							"facebook": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"youtube",
+							"linkedin",
+							"twitter",
+							"instagram",
+							"facebook"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"name",
+					"email",
+					"type",
+					"registrationDocument",
+					"ownerIDDocument",
+					"provinceTerritory",
+					"city",
+					"postalCode",
+					"phone",
+					"website",
+					"description",
+					"logo",
+					"cover",
+					"socialHandles"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AppResponseStatusEnum": {
 				"enum": [
 					"success",
@@ -117,17 +287,32 @@
 	"paths": {
 		"/media": {
 			"post": {
-				"operationId": "UploadMedia",
+				"operationId": "Upload",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/Media"
+										},
+										{
+											"type": "boolean",
+											"enum": [
+												false
+											]
+										}
+									]
+								}
 							}
 						}
 					}
 				},
+				"tags": [
+					"Media"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
@@ -140,10 +325,14 @@
 									"file": {
 										"type": "string",
 										"format": "binary"
+									},
+									"mediaType": {
+										"type": "string"
 									}
 								},
 								"required": [
-									"file"
+									"file",
+									"mediaType"
 								]
 							}
 						}
@@ -151,21 +340,41 @@
 				}
 			}
 		},
-		"/business/getBusiness": {
-			"get": {
-				"operationId": "GetBusiness",
+		"/business": {
+			"post": {
+				"operationId": "CreateBusiness",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
 							}
 						}
 					}
 				},
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateBusinessDTO"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/user/register": {
