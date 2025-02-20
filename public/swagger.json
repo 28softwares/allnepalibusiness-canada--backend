@@ -50,9 +50,6 @@
 					},
 					"businessCover": {
 						"type": "string"
-					},
-					"ownerId": {
-						"type": "string"
 					}
 				},
 				"required": [
@@ -65,8 +62,7 @@
 					"type",
 					"businessRegistrationDocument",
 					"businessLogo",
-					"businessCover",
-					"ownerId"
+					"businessCover"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -79,15 +75,6 @@
 					"TECHNOLOGY",
 					"RETAIL",
 					"WHOLESALE"
-				],
-				"type": "string"
-			},
-			"VerificationDocumentType": {
-				"enum": [
-					"PASSPORT",
-					"DRIVERS_LICENSE",
-					"NATIONAL_ID",
-					"OTHER"
 				],
 				"type": "string"
 			},
@@ -117,9 +104,6 @@
 					"password": {
 						"type": "string"
 					},
-					"verificationDocument": {
-						"$ref": "#/components/schemas/VerificationDocumentType"
-					},
 					"business": {
 						"$ref": "#/components/schemas/Business"
 					},
@@ -138,7 +122,6 @@
 					"username",
 					"email",
 					"password",
-					"verificationDocument",
 					"business",
 					"token"
 				],

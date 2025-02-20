@@ -36,7 +36,6 @@ const models: TsoaRoute.Models = {
             "businessRegistrationDocument": {"dataType":"string","required":true},
             "businessLogo": {"dataType":"string","required":true},
             "businessCover": {"dataType":"string","required":true},
-            "ownerId": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -44,11 +43,6 @@ const models: TsoaRoute.Models = {
     "BusinessCategory": {
         "dataType": "refEnum",
         "enums": ["INSURANCE","FINANCE","HEALTHCARE","TECHNOLOGY","RETAIL","WHOLESALE"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "VerificationDocumentType": {
-        "dataType": "refEnum",
-        "enums": ["PASSPORT","DRIVERS_LICENSE","NATIONAL_ID","OTHER"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "User": {
@@ -61,7 +55,6 @@ const models: TsoaRoute.Models = {
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "password": {"dataType":"string","required":true},
-            "verificationDocument": {"ref":"VerificationDocumentType","required":true},
             "business": {"ref":"Business","required":true},
             "token": {"dataType":"array","array":{"dataType":"refObject","ref":"Token"},"required":true},
         },
