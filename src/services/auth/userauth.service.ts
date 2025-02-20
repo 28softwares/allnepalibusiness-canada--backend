@@ -1,5 +1,6 @@
 import { DotEnvConfig } from "../../config/dotenv.config";
 import { RegisterUserDTO } from "../../dtos/user/registerUser.dto";
+import { Media } from "../../entities/media/Media.entity";
 import { User } from "../../entities/user/User.entity";
 import { AppError } from "../../utils/appError.util";
 import { AppResponse } from "../../utils/appResponse.util";
@@ -16,13 +17,22 @@ class UserAuthService {
       newUser.username = user.username;
       newUser.email = user.email;
       newUser.password = user.password;
+
+      const verificationDocument = await Media.findOne({
+        where: {
+          userVerificationImage: user.verificationDocument,
+        }
+      })
+
+      if (!verificationDocument) throw AppError.notFound("Verification document not found");
+      newUser.verificationDocumentImage = verificationDocument;
+
       await newUser.save();
-      return AppResponse.success("User registration successful", { username: newUser.username, emai: newUser.email })
+      return AppResponse.success("User registration successful", { username: newUser.username, email: newUser.email })
     } catch (e) {
       console.error(e);
       throw new Error;
     }
-
   }
 
 
@@ -38,6 +48,5 @@ class UserAuthService {
     return AppResponse.success("User login successful", { token: token })
   }
 }
-
 
 export default new UserAuthService();

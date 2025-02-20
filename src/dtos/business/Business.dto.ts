@@ -9,7 +9,7 @@ import {
   IsUrl,
 } from "class-validator";
 
-import { BusinessCategory } from "../../entities/business/Business.entity";
+import { BusinessCategory, VisibilityStatus } from "../../entities/business/Business.entity";
 import { User } from "../../entities/user/User.entity";
 
 export class SocialHandlesDTO {
@@ -64,7 +64,7 @@ export class AddressDTO {
 export class CreateBusinessDTO {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  businessName: string;
 
   @IsOptional()
   @IsString()
@@ -97,7 +97,7 @@ export class CreateBusinessDTO {
 
   @IsString()
   @IsNotEmpty()
-  registrationDocumentId: string;
+  businessRegistrationDocument: string;
 
   @IsNotEmpty()
   logo: string;
@@ -105,8 +105,15 @@ export class CreateBusinessDTO {
   @IsNotEmpty()
   coverImage: string;
 
-  @IsNotEmpty()
-  owner: User;
+
+  @IsOptional()
+  visibility: {
+    status: VisibilityStatus,
+    remarks: string
+  }
+
+  // @IsNotEmpty()
+  // owner: User;
 
   @IsOptional()
   @Object(() => SocialHandlesDTO)
