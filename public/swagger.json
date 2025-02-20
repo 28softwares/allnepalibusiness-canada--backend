@@ -7,6 +7,106 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"AppResponseStatusEnum": {
+				"enum": [
+					"success",
+					"error",
+					"TOKEN_UPDATED",
+					"TOKEN_EXPIRED",
+					"OTP_SENT"
+				],
+				"type": "string"
+			},
+			"AppResponse__username-string--email-string__": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/AppResponseStatusEnum"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"email": {
+								"type": "string"
+							},
+							"username": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"email",
+							"username"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"statusCode",
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"RegisterUserDTO": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"verificationDocument": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"username",
+					"email",
+					"password",
+					"verificationDocument"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AppResponse__token-any__": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/AppResponseStatusEnum"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"token": {}
+						},
+						"required": [
+							"token"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"statusCode",
+					"status",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"MediaType": {
 				"enum": [
 					"BUSINESS_LOGO",
@@ -209,106 +309,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"AppResponseStatusEnum": {
-				"enum": [
-					"success",
-					"error",
-					"TOKEN_UPDATED",
-					"TOKEN_EXPIRED",
-					"OTP_SENT"
-				],
-				"type": "string"
-			},
-			"AppResponse__username-string--email-string__": {
-				"properties": {
-					"statusCode": {
-						"type": "number",
-						"format": "double"
-					},
-					"status": {
-						"$ref": "#/components/schemas/AppResponseStatusEnum"
-					},
-					"message": {
-						"type": "string"
-					},
-					"data": {
-						"properties": {
-							"email": {
-								"type": "string"
-							},
-							"username": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"email",
-							"username"
-						],
-						"type": "object"
-					}
-				},
-				"required": [
-					"statusCode",
-					"status",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"RegisterUserDTO": {
-				"properties": {
-					"username": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"verificationDocument": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"username",
-					"email",
-					"password",
-					"verificationDocument"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AppResponse__token-any__": {
-				"properties": {
-					"statusCode": {
-						"type": "number",
-						"format": "double"
-					},
-					"status": {
-						"$ref": "#/components/schemas/AppResponseStatusEnum"
-					},
-					"message": {
-						"type": "string"
-					},
-					"data": {
-						"properties": {
-							"token": {}
-						},
-						"required": [
-							"token"
-						],
-						"type": "object"
-					}
-				},
-				"required": [
-					"statusCode",
-					"status",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -322,6 +322,82 @@
 		"contact": {}
 	},
 	"paths": {
+		"/auth/register": {
+			"post": {
+				"operationId": "Register",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppResponse__username-string--email-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RegisterUserDTO"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppResponse__token-any__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/media": {
 			"post": {
 				"operationId": "Upload",
@@ -408,82 +484,6 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/CreateBusinessDTO"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/user/register": {
-			"post": {
-				"operationId": "Register",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AppResponse__username-string--email-string__"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"User"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/RegisterUserDTO"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/user/login": {
-			"post": {
-				"operationId": "Login",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AppResponse__token-any__"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"User"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"properties": {
-									"password": {
-										"type": "string"
-									},
-									"email": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"password",
-									"email"
-								],
-								"type": "object"
 							}
 						}
 					}

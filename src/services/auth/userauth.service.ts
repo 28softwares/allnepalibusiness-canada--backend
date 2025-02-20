@@ -18,7 +18,6 @@ class UserAuthService {
       newUser.email = user.email;
       newUser.password = user.password;
 
-
       const verificationDocument = await Media.findOne({
         where: {
           userVerificationImage: user.verificationDocument,

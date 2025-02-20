@@ -4,7 +4,7 @@ import errorHandler from "./errorHandler.middleware";
 import { DotEnvConfig, Environment } from '../config/dotenv.config';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from "../../public/swagger/swagger.json"
+import swaggerDocument from "../../public/swagger.json"
 import compression from 'compression';
 import { rateLimit } from 'express-rate-limit';
 import cookieParser from "cookie-parser"
@@ -40,7 +40,7 @@ export const configMiddleware = (app: express.Application) => {
     if (DotEnvConfig.NODE_ENV === Environment.DEVELOPMENT) {
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
         app.get('/docs/swagger.json', (req, res) => {
-            res.sendFile(path.join(__dirname, '../../public/swagger/swagger.json'));
+            res.sendFile(path.join(__dirname, '../../public/swagger.json'));
         });
     }
     RegisterRoutes(app);
