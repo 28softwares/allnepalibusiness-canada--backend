@@ -2,6 +2,7 @@
   "entryFile": "src/server.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": [
+    "src/controllers/auth/*.controller.ts",
     "src/controllers/**/*.controller.ts",
     "src/controllers/*.controller.ts",
     "src/controllers/v1/*.controller.ts",

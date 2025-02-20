@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
 
 export class RegisterUserDTO {
   @IsNotEmpty()
@@ -9,8 +9,10 @@ export class RegisterUserDTO {
   @IsEmail()
   email: string;
 
-
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  verificationDocument: string;
 }

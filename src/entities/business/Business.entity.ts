@@ -20,6 +20,13 @@ export enum OwnerIdType {
   OTHER = "OTHER",
 }
 
+
+export enum VisibilityStatus {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+}
+
 @Entity()
 export class Business extends CommonEntity {
   @Column()
@@ -31,9 +38,16 @@ export class Business extends CommonEntity {
   @Column({ type: "enum", enum: BusinessCategory })
   category: BusinessCategory;
 
-
   @Column()
   website: string;
+
+  @Column({
+    type: "json",
+  })
+  visibility: {
+    status: VisibilityStatus;
+    remarks: string;
+  }[]
 
   @Column({
     type: "jsonb",
@@ -41,9 +55,9 @@ export class Business extends CommonEntity {
   address: {
     street: string;
     city: string;
-      province: string;
-      postalCode: string;
-    }
+    province: string;
+    postalCode: string;
+  }
 
   @Column({
     type: "jsonb",
@@ -68,7 +82,7 @@ export class Business extends CommonEntity {
   coverImage: Media;
 
   @OneToOne(() => Media, (media) => media.businessRegistrationDocument)
-  businessRegistrationDocument: string;
+  businessRegistrationDocument: Media;
 
   @OneToOne(() => User, (user) => user.business)
   owner: User;
