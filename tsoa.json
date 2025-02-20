@@ -9,9 +9,6 @@
   ],
   "spec": {
     "outputDirectory": "public",
-<<<<<<< HEAD
-    "specVersion": 3
-=======
     "specVersion": 3,
     "spec": {
       "servers": [
@@ -21,11 +18,10 @@
         },
         {
           "url": "https://allnepalibusiness/api/v1",
-          "description": "prouduction server"
+          "description": "production server"
         }
       ]
     }
->>>>>>> main
   },
   "routes": {
     "routesDir": "src/routes",

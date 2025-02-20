@@ -61,15 +61,6 @@ export class Business extends CommonEntity {
     linkedin: string;
   };
 
-<<<<<<< HEAD
-  @Column({ type: "json", nullable: true })
-  actionByAdmin: [
-    { status: "REVIEW" | "APPROVED" | "REJECTED"; reason: string; date: Date }
-  ];
-
-  @Column({ type: "boolean", nullable: true })
-  status: "ACTIVE" | "INACTIVE";
-=======
   @OneToOne(() => Media, (media) => media.businessLogo)
   logo: Media;
 
@@ -78,7 +69,6 @@ export class Business extends CommonEntity {
 
   @OneToOne(() => Media, (media) => media.businessRegistrationDocument)
   businessRegistrationDocument: string;
->>>>>>> main
 
   @OneToOne(() => User, (user) => user.business)
   owner: User;

@@ -18,9 +18,6 @@ const multer = require('multer');
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-<<<<<<< HEAD
-    "BusinessType": {
-=======
     "MediaType": {
         "dataType": "refEnum",
         "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT"],
@@ -39,22 +36,13 @@ const models: TsoaRoute.Models = {
             "businessRegistrationDocument": {"dataType":"string","required":true},
             "businessLogo": {"dataType":"string","required":true},
             "businessCover": {"dataType":"string","required":true},
-            "ownerId": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "BusinessCategory": {
->>>>>>> main
         "dataType": "refEnum",
         "enums": ["INSURANCE","FINANCE","HEALTHCARE","TECHNOLOGY","RETAIL","WHOLESALE"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-<<<<<<< HEAD
-=======
-    "VerificationDocumentType": {
-        "dataType": "refEnum",
-        "enums": ["PASSPORT","DRIVERS_LICENSE","NATIONAL_ID","OTHER"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "User": {
@@ -67,7 +55,6 @@ const models: TsoaRoute.Models = {
             "username": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "password": {"dataType":"string","required":true},
-            "verificationDocument": {"ref":"VerificationDocumentType","required":true},
             "business": {"ref":"Business","required":true},
             "token": {"dataType":"array","array":{"dataType":"refObject","ref":"Token"},"required":true},
         },
@@ -164,25 +151,10 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
->>>>>>> main
     "CreateBusinessDTO": {
         "dataType": "refObject",
         "properties": {
             "name": {"dataType":"string","required":true},
-<<<<<<< HEAD
-            "email": {"dataType":"string","required":true},
-            "type": {"ref":"BusinessType","required":true},
-            "registrationDocument": {"dataType":"string","required":true},
-            "ownerIDDocument": {"dataType":"string","required":true},
-            "provinceTerritory": {"dataType":"string","required":true},
-            "city": {"dataType":"string","required":true},
-            "postalCode": {"dataType":"string","required":true},
-            "phone": {"dataType":"string","required":true},
-            "website": {"dataType":"string","required":true},
-            "description": {"dataType":"string","required":true},
-            "logo": {"dataType":"string","required":true},
-            "cover": {"dataType":"string","required":true},
-=======
             "description": {"dataType":"string","required":true},
             "category": {"ref":"BusinessCategory","required":true},
             "website": {"dataType":"string","required":true},
@@ -192,14 +164,11 @@ const models: TsoaRoute.Models = {
             "logo": {"dataType":"string","required":true},
             "coverImage": {"dataType":"string","required":true},
             "owner": {"ref":"User","required":true},
->>>>>>> main
             "socialHandles": {"dataType":"nestedObjectLiteral","nestedProperties":{"youtube":{"dataType":"string","required":true},"linkedin":{"dataType":"string","required":true},"twitter":{"dataType":"string","required":true},"instagram":{"dataType":"string","required":true},"facebook":{"dataType":"string","required":true}},"required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-<<<<<<< HEAD
-=======
     "AppResponseStatusEnum": {
         "dataType": "refEnum",
         "enums": ["success","error","TOKEN_UPDATED","TOKEN_EXPIRED","OTP_SENT"],
@@ -237,7 +206,6 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
->>>>>>> main
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"throw-on-extras","bodyCoercion":true});
 
@@ -294,18 +262,11 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-<<<<<<< HEAD
-        const argsBusinessController_getBusiness: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
-        };
-        app.get('/business',
-=======
         const argsBusinessController_createBusiness: Record<string, TsoaRoute.ParameterSchema> = {
                 req: {"in":"request","name":"req","required":true,"dataType":"object"},
                 body: {"in":"body","name":"body","required":true,"ref":"CreateBusinessDTO"},
         };
         app.post('/api/v1/business',
->>>>>>> main
             ...(fetchMiddlewares<RequestHandler>(BusinessController)),
             ...(fetchMiddlewares<RequestHandler>(BusinessController.prototype.createBusiness)),
 
@@ -381,36 +342,6 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
 
               await templateService.apiHandler({
                 methodName: 'login',
-                controller,
-                response,
-                next,
-                validatedArgs,
-                successStatus: undefined,
-              });
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsBusinessController_createBusiness: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"CreateBusinessDTO"},
-        };
-        app.post('/business',
-            ...(fetchMiddlewares<RequestHandler>(BusinessController)),
-            ...(fetchMiddlewares<RequestHandler>(BusinessController.prototype.createBusiness)),
-
-            async function BusinessController_createBusiness(request: ExRequest, response: ExResponse, next: any) {
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsBusinessController_createBusiness, request, response });
-
-                const controller = new BusinessController();
-
-              await templateService.apiHandler({
-                methodName: 'createBusiness',
                 controller,
                 response,
                 next,

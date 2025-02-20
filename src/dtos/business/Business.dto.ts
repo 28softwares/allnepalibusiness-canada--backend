@@ -34,14 +34,6 @@ export class SocialHandlesDTO {
   youtube: string;
 }
 
-<<<<<<< HEAD
-export class UpdateBusinessDTO {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-=======
->>>>>>> main
-
 export class ContactInformationDTO {
   @IsOptional()
   @IsString()
@@ -53,23 +45,10 @@ export class ContactInformationDTO {
   email: string;
 }
 
-
-<<<<<<< HEAD
-  @IsUUID()
-  registrationDocument: string;
-
-  @IsUUID()
-  ownerIDDocument: string;
-
-  @IsString()
-  @IsNotEmpty()
-  provinceTerritory: string;
-=======
 export class AddressDTO {
   @IsString()
   @IsNotEmpty()
   street: string;
->>>>>>> main
 
   @IsString()
   @IsNotEmpty()
@@ -91,13 +70,6 @@ export class CreateBusinessDTO {
   @IsString()
   description: string;
 
-<<<<<<< HEAD
-  @IsUUID()
-  logo: string;
-
-  @IsUUID()
-  cover: string;
-=======
   @IsEnum(BusinessCategory)
   category: BusinessCategory;
 
@@ -135,7 +107,6 @@ export class CreateBusinessDTO {
 
   @IsNotEmpty()
   owner: User;
->>>>>>> main
 
   @IsOptional()
   @Object(() => SocialHandlesDTO)
