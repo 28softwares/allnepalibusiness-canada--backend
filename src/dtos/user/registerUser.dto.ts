@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsString, IsStrongPassword } from "class-validator";
+import { VerificationDocumentType } from "../../constants/appConstants";
 
 export class RegisterUserDTO {
   @IsNotEmpty()
@@ -13,4 +14,7 @@ export class RegisterUserDTO {
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  verificationDocument: string;
 }

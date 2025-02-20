@@ -5,7 +5,7 @@ import { Media } from "../../entities/media/Media.entity";
 class BusinessService {
   async create(data: CreateBusinessDTO) {
     const business = new Business();
-    business.businessName = data.name;
+    business.businessName = data.businessName;
     business.description = data.description;
     business.address = data.address;
     business.category = data.category;
@@ -15,12 +15,12 @@ class BusinessService {
 
     const businessRegistrationDoc = await Media.findOne({
       where: {
-        id: data.registrationDocumentId,
+        businessRegistrationDocument: data.businessRegistrationDocument
       },
     });
 
     if (!businessRegistrationDoc) return { message: "Business registration document not found" };
-    business.businessRegistrationDocument = businessRegistrationDoc.id;
+    business.businessRegistrationDocument = businessRegistrationDoc;
 
     const businessLogo = await Media.findOne({
       where: {

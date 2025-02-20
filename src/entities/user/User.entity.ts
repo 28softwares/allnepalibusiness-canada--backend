@@ -5,6 +5,7 @@ import { Business } from "../business/Business.entity";
 import { Token } from "../token/token.entity";
 import BcryptService from "../../utils/bcrypt.util";
 import { MediaType, VerificationDocumentType } from "../../constants/appConstants";
+import { Media } from "../media/Media.entity";
 
 @Entity()
 export class User extends CommonEntity {
@@ -20,8 +21,12 @@ export class User extends CommonEntity {
   // @Column({
   //   type: "enum",
   //   enum: VerificationDocumentType,
+  //   default: "OTHER",
   // })
-  // verificationDocument: VerificationDocumentType; 
+  // verificationDocument: VerificationDocumentType;
+
+  @OneToOne(() => Media, (media) => media.userVerificationImage)
+  verificationDocumentImage: Media;
 
   @OneToOne(() => Business, (business) => business.owner)
   business: Business;

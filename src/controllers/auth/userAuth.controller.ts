@@ -2,7 +2,6 @@ import { Body, Controller, Get, Post, Route, Tags } from "tsoa";
 import userauthService from "../../services/auth/userauth.service";
 import { RegisterUserDTO } from "../../dtos/user/registerUser.dto";
 
-
 @Route("/user")
 @Tags("User")
 export class UserAuthController extends Controller {
@@ -10,7 +9,6 @@ export class UserAuthController extends Controller {
   async register(@Body() user: RegisterUserDTO) {
     return await userauthService.register(user);
   }
-
 
   @Post("/login")
   async login(@Body() user: { email: string, password: string }) {
