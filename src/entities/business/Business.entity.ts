@@ -1,9 +1,9 @@
 import { Column, Entity, OneToOne } from "typeorm";
-import { CommonSchema } from "../common/CommonSchema.entity";
+import { CommonEntity } from "../common/CommonSchema.entity";
 import { Media } from "../media/Media.entity";
 import { User } from "../user/User.entity";
 
-export enum BusinessType {
+export enum BusinessCategory {
   INSURANCE = "INSURANCE",
   FINANCE = "FINANCE",
   HEALTHCARE = "HEALTHCARE",
@@ -12,54 +12,63 @@ export enum BusinessType {
   WHOLESALE = "WHOLESALE",
 }
 
+//owner id document type
+export enum OwnerIdType {
+  PASSPORT = "PASSPORT",
+  DRIVERS_LICENSE = "DRIVERS_LICENSE",
+  NATIONAL_ID = "NATIONAL_ID",
+  OTHER = "OTHER",
+}
+
 @Entity()
-export class Business extends CommonSchema {
+export class Business extends CommonEntity {
   @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column({ type: "enum", enum: BusinessType })
-  type: BusinessType;
-
-  @OneToOne(() => Media, (media) => media.businessRegistration)
-  registrationDocument: Media;
-
-  @OneToOne(() => Media, (media) => media.ownerId)
-  ownerIdDocument: Media;
+  businessName: string;
 
   @Column()
-  provinceTerritory: string;
+  description: string;
+
+  @Column({ type: "enum", enum: BusinessCategory })
+  category: BusinessCategory;
+
 
   @Column()
-  city: string;
-
-  @Column()
-  postalcode: string;
-
-  @Column()
-  phone: string;
-
-  @Column({ nullable: true })
   website: string;
 
-  @Column()
-  description: string; // business description
+  @Column({
+    type: "jsonb",
+  })
+  address: {
+    street: string;
+    city: string;
+      province: string;
+      postalCode: string;
+    }
 
-  @OneToOne(() => Media, (media) => media.businessLogo)
-  logo: Media;
+  @Column({
+    type: "jsonb",
+  })
+  businessContactInformation: {
+    phone: string;
+    email: string;
+  };
 
-  @OneToOne(() => Media, (media) => media.businessCover)
-  cover: Media;
-
-  @Column({ nullable: true, type: "json" })
+  @Column({ nullable: true, type: "jsonb" })
   socialHandles: {
     facebook: string;
     twitter: string;
     instagram: string;
     linkedin: string;
   };
+
+  @OneToOne(() => Media, (media) => media.businessLogo)
+  logo: Media;
+
+  @OneToOne(() => Media, (media) => media.businessCover)
+  coverImage: Media;
+
+  @OneToOne(() => Media, (media) => media.businessRegistrationDocument)
+  businessRegistrationDocument: string;
 
   @OneToOne(() => User, (user) => user.business)
   owner: User;

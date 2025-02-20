@@ -1,2 +1,5 @@
-node_modules
+.env
 public
+node_modules
+public/uploads
+public/temp/

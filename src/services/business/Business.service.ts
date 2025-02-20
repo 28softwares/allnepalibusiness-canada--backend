@@ -5,35 +5,22 @@ import { Media } from "../../entities/media/Media.entity";
 class BusinessService {
   async create(data: CreateBusinessDTO) {
     const business = new Business();
-    business.name = data.name;
-    business.email = data.email;
-    business.type = data.type;
+    business.businessName = data.name;
+    business.description = data.description;
+    business.address = data.address;
+    business.category = data.category;
+    business.website = data.website;
+    business.businessContactInformation = data.businessContactInformation;
+    business.socialHandles = data.socialHandles;
 
     const businessRegistrationDoc = await Media.findOne({
       where: {
-        businessRegistration: data.registrationDocument,
+        id: data.registrationDocumentId,
       },
     });
 
-    if (!businessRegistrationDoc)
-      return { message: "Business registration document not found" };
-    business.registrationDocument = businessRegistrationDoc;
-
-    const ownerIDDoc = await Media.findOne({
-      where: {
-        ownerId: data.ownerIDDocument,
-      },
-    });
-
-    if (!ownerIDDoc) return { message: "Owner ID document not found" };
-    business.ownerIdDocument = ownerIDDoc;
-
-    business.provinceTerritory = data.provinceTerritory;
-    business.city = data.city;
-    business.postalcode = data.postalCode;
-    business.phone = data.phone;
-    business.website = data.website;
-    business.description = data.description;
+    if (!businessRegistrationDoc) return { message: "Business registration document not found" };
+    business.businessRegistrationDocument = businessRegistrationDoc.id;
 
     const businessLogo = await Media.findOne({
       where: {
@@ -46,19 +33,27 @@ class BusinessService {
 
     const businessCoverPhoto = await Media.findOne({
       where: {
-        businessCover: data.cover,
+        businessCover: data.coverImage,
       },
     });
 
     if (!businessCoverPhoto)
       return { message: "Business cover photo not found" };
-    business.cover = businessCoverPhoto;
+    business.coverImage = businessCoverPhoto;
 
-    business.socialHandles = data.socialHandles;
+    // const ownerIDDoc = await Media.findOne({
+    //   where: {
+    //     id: data.owner.verificationDocument,
+    //   },
+    // });
+
+    // if (!ownerIDDoc) return { message: "Owner ID document not found" };
+    // business.owner.verificationDocument = ownerIDDoc;
 
     await business.save();
 
     return { message: "Business created successfully" };
+
   }
 }
 

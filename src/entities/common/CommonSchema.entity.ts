@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 
 @Entity()
-export class CommonSchema extends BaseEntity {
+export class CommonEntity extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
