@@ -1,15 +1,16 @@
 import {
   IsEmail,
   IsEnum,
+  IsJSON,
   IsNotEmpty,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   IsUUID,
   IsUrl,
 } from "class-validator";
 
-import { BusinessType } from "../../entities/business/Business.entity";
+import { BusinessCategory } from "../../entities/business/Business.entity";
+import { User } from "../../entities/user/User.entity";
 
 export class SocialHandlesDTO {
   @IsOptional()
@@ -33,18 +34,27 @@ export class SocialHandlesDTO {
   youtube: string;
 }
 
+<<<<<<< HEAD
 export class UpdateBusinessDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
+=======
+>>>>>>> main
 
-  @IsNotEmpty()
+export class ContactInformationDTO {
+  @IsOptional()
+  @IsString()
+  phone: string;
+
+  @IsOptional()
+  @IsString()
   @IsEmail()
   email: string;
+}
 
-  @IsEnum(BusinessType)
-  type: BusinessType;
 
+<<<<<<< HEAD
   @IsUUID()
   registrationDocument: string;
 
@@ -54,6 +64,12 @@ export class UpdateBusinessDTO {
   @IsString()
   @IsNotEmpty()
   provinceTerritory: string;
+=======
+export class AddressDTO {
+  @IsString()
+  @IsNotEmpty()
+  street: string;
+>>>>>>> main
 
   @IsString()
   @IsNotEmpty()
@@ -61,25 +77,65 @@ export class UpdateBusinessDTO {
 
   @IsString()
   @IsNotEmpty()
+  province: string;
+
+  @IsString()
   postalCode: string;
-
-  @IsPhoneNumber()
+}
+export class CreateBusinessDTO {
+  @IsString()
   @IsNotEmpty()
-  phone: string;
-
-  @IsOptional()
-  @IsUrl()
-  website: string;
+  name: string;
 
   @IsOptional()
   @IsString()
   description: string;
 
+<<<<<<< HEAD
   @IsUUID()
   logo: string;
 
   @IsUUID()
   cover: string;
+=======
+  @IsEnum(BusinessCategory)
+  category: BusinessCategory;
+
+  @IsOptional()
+  @IsUrl()
+  website: string;
+
+  @IsNotEmpty()
+  @IsJSON()
+  @Object(() => ContactInformationDTO)
+  businessContactInformation: {
+    phone: string;
+    email: string;
+  };
+
+  @IsJSON()
+  @IsNotEmpty()
+  @Object(() => AddressDTO)
+  address: {
+    street: string;
+    city: string;
+    province: string;
+    postalCode: string;
+  };
+
+  @IsString()
+  @IsNotEmpty()
+  registrationDocumentId: string;
+
+  @IsNotEmpty()
+  logo: string;
+
+  @IsNotEmpty()
+  coverImage: string;
+
+  @IsNotEmpty()
+  owner: User;
+>>>>>>> main
 
   @IsOptional()
   @Object(() => SocialHandlesDTO)

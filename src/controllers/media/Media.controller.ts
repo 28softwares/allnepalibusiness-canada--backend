@@ -1,43 +1,100 @@
-import { Controller, Route, UploadedFile, Post, Request } from "tsoa";
-import express from "express";
-import multer from "multer";
-import fs from "fs";
-import { Media, MediaType } from "../../entities/media/Media.entity";
-
-@Route("media")
-export class MediaController extends Controller {
-  @Post("/")
-  public async uploadMedia(
+import express from 'express';
+import {
+  Controller,
+  FormField,
+  Post,
+  Route,
+  Request,
+  UploadedFile,
+  Tags,
+} from 'tsoa';
+import path from 'path';
+import fs from 'fs';
+import { DotEnvConfig } from '../../config/dotenv.config';
+import { MediaType } from '../../constants/appConstants';
+import { AppError } from '../../utils/appError.util';
+import mediaService from '../../services/media/media.service';
+@Tags('Media')
+@Route('media')
+class MediaController extends Controller {
+  @Post('/')
+  async upload(
+    @Request() req: express.Request,
     @UploadedFile() file: Express.Multer.File,
-    @Request() req: express.Request // ? type=BUSINESS_LOGO
-  ): Promise<any> {
-    if (!req.body.type) {
-      this.setStatus(400);
-      return { message: "Media type is required" };
+    @FormField() mediaType: MediaType,
+  ) {
+    //enum => array. (values)
+    const validMediaTypeList = Object.values(MediaType);
+    if (!validMediaTypeList.includes(mediaType as MediaType)) {
+      throw AppError.badRequest('Invalid media type');
     }
 
-    //   if media type is not of MediaType enum the return error
-    if (!Object.values(MediaType).includes(req.body.type)) {
-      this.setStatus(400);
-      return { message: "Invalid media type" };
+    const validateResponse = this.validate(mediaType as MediaType, file);
+    if (validateResponse !== true) return validateResponse;
+    // upload.
+
+    //generate file name;
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const ext = path.extname(file.originalname);
+    const updatedFileName = uniqueSuffix + ext;
+
+    if (!fs.existsSync(DotEnvConfig.TEMP_FOLDER_PATH)) {
+      fs.mkdirSync(DotEnvConfig.TEMP_FOLDER_PATH, { recursive: true });
     }
 
-    //   save file.buffer media to public/uploads
+    fs.writeFileSync(
+      path.resolve(DotEnvConfig.TEMP_FOLDER_PATH, updatedFileName),
+      file.buffer,
+    );
 
-    const bufferString = Buffer.from(file.buffer);
-    const mediaName = new Date() + "." + file.originalname.split(".")[1];
-    if (!fs.existsSync("public/uploads")) {
-      fs.mkdirSync("public/uploads", { recursive: true });
+    const res = await mediaService.uploadSingle(
+      mediaType as MediaType,
+      file.mimetype,
+      updatedFileName,
+    );
+
+    return res;
+  }
+
+  //
+  private validate(mediaType: MediaType, file: Express.Multer.File) {
+    let acceptedExtensions: string[] = [];
+    let fileSize: number = 0;
+
+    //
+    switch (mediaType) {
+      case MediaType.BUSINESS_LOGO:
+        acceptedExtensions = ['.jpeg', '.jpg', '.png'];
+        fileSize = 1024 * 1024 * 1; // 1MB
+        break;
+
+      case MediaType.OWNER_IDENTIFICATION_DOCUMENT:
+        acceptedExtensions = ['.jpeg', '.jpg', '.png'];
+        fileSize = 1024 * 1024 * 2; // 2MB
+        break;
+
+      default:
     }
 
-    fs.writeFileSync(`public/uploads/${mediaName}`, bufferString);
+    //extension validation.
+    if (!acceptedExtensions.includes(path.extname(file.originalname))) {
+      throw AppError.badRequest(
+        'File extension not supported. Supported extensions are : ' +
+        acceptedExtensions.toString(),
+      );
+    }
 
-    console.log("file", file);
-    const media = new Media();
-    media.name = mediaName;
-    media.mimeType = file.mimetype;
-    media.type = req.body.type;
-    await media.save();
-    return { message: "Media uploaded successfully" };
+    //fileSize validation.
+    if (file.size > fileSize) {
+      throw AppError.badRequest(
+        'File size exceeded. Maximum size is : ' +
+        fileSize / (1024 * 1024) +
+        ' MB',
+      );
+    }
+
+    return true;
   }
 }
+
+export { MediaController };
