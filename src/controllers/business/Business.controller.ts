@@ -4,6 +4,7 @@ import BusinessService from "../../services/business/Business.service";
 import { CreateBusinessDTO } from "../../dtos/business/Business.dto";
 
 @Route("/business")
+@Tags("Business")
 export class BusinessController extends Controller {
   @Post("/")
   async createBusiness(
