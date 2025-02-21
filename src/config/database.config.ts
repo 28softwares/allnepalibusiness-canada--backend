@@ -13,11 +13,7 @@ const AppDataSource = new DataSource({
   entities: [`${__dirname}/../entities/**/*.entity{.js,.ts}`], // use path.join() for windows
   namingStrategy: new SnakeNamingStrategy(),
   // logging: true,
-  // dropSchema: true
+  // dropSchema: true,
 });
 
 export default AppDataSource;
-
-
-
-
