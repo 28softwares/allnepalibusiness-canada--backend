@@ -13,8 +13,8 @@ export class BusinessController extends Controller {
   ) {
     return await BusinessService.create(body);
   }
-  // @Get("getBusiness")
-  // public async getBusiness(@Request() req: express.Request): Promise<any> {
-  //   return await BusinessService.create(req.body);
-  // }
+  @Get("/all")
+  public async getBusiness(@Request() req: express.Request) {
+    return await BusinessService.get();
+  }
 }

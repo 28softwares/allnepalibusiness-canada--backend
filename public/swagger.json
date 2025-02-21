@@ -699,6 +699,9 @@
 					"businessRegistrationDocument": {
 						"type": "string"
 					},
+					"ownerVerificationDocument": {
+						"type": "string"
+					},
 					"logo": {
 						"type": "string"
 					},
@@ -756,6 +759,7 @@
 					"businessContactInformation",
 					"address",
 					"businessRegistrationDocument",
+					"ownerVerificationDocument",
 					"logo",
 					"coverImage",
 					"visibility",

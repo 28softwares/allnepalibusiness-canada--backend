@@ -235,6 +235,7 @@ const models: TsoaRoute.Models = {
             "businessContactInformation": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"phone":{"dataType":"string","required":true}},"required":true},
             "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"postalCode":{"dataType":"string","required":true},"province":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
             "businessRegistrationDocument": {"dataType":"string","required":true},
+            "ownerVerificationDocument": {"dataType":"string","required":true},
             "logo": {"dataType":"string","required":true},
             "coverImage": {"dataType":"string","required":true},
             "visibility": {"dataType":"nestedObjectLiteral","nestedProperties":{"remarks":{"dataType":"string","required":true},"status":{"ref":"VisibilityStatus","required":true}},"required":true},
