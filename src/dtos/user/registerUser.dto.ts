@@ -3,7 +3,7 @@ import { IsEmail, IsEnum, IsNotEmpty, IsString, IsStrongPassword } from "class-v
 export class RegisterUserDTO {
   @IsNotEmpty()
   @IsString()
-  username: string;
+  fullName: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -12,7 +12,4 @@ export class RegisterUserDTO {
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
-
-  @IsNotEmpty()
-  verificationDocument: string;
 }

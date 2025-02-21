@@ -6,6 +6,7 @@ import { Token } from "../token/token.entity";
 import BcryptService from "../../utils/bcrypt.util";
 import { MediaType, VerificationDocumentType } from "../../constants/appConstants";
 import { Media } from "../media/Media.entity";
+import { OTP } from "../otp/otp.entity";
 
 @Entity()
 export class User extends CommonEntity {
@@ -19,8 +20,17 @@ export class User extends CommonEntity {
   password: string;
 
 
+  @Column({
+    default: false
+  })
+  isVerified: boolean;
+
+
   @OneToOne(() => Business, (business) => business.ownerId)
   business: Business;
+
+  @OneToOne(() => OTP, (otp) => otp.userId)
+  otp: OTP
 
   @OneToMany(() => Token, (token) => token.user)
   token: Token[];

@@ -7,6 +7,8 @@ class UserService {
     if (!user) throw AppError.notFound("User not found");
     return user;
   }
+
+
 }
 
 

@@ -17,7 +17,7 @@
 				],
 				"type": "string"
 			},
-			"AppResponse__username-string--email-string__": {
+			"AppResponse__username-any--email-string__": {
 				"properties": {
 					"statusCode": {
 						"type": "number",
@@ -34,9 +34,7 @@
 							"email": {
 								"type": "string"
 							},
-							"username": {
-								"type": "string"
-							}
+							"username": {}
 						},
 						"required": [
 							"email",
@@ -151,7 +149,7 @@
 					"businessCover": {
 						"type": "string"
 					},
-					"userVerificationImage": {
+					"ownerVerificationDocument": {
 						"type": "string"
 					}
 				},
@@ -166,7 +164,7 @@
 					"businessRegistrationDocument",
 					"businessLogo",
 					"businessCover",
-					"userVerificationImage"
+					"ownerVerificationDocument"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -331,7 +329,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AppResponse__username-string--email-string__"
+									"$ref": "#/components/schemas/AppResponse__username-any--email-string__"
 								}
 							}
 						}
