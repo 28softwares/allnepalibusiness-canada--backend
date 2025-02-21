@@ -10,7 +10,7 @@ import { Media } from "../media/Media.entity";
 @Entity()
 export class User extends CommonEntity {
   @Column()
-  username: string;
+  fullName: string;
 
   @Column()
   email: string;
@@ -18,17 +18,8 @@ export class User extends CommonEntity {
   @Column({ select: false })
   password: string;
 
-  // @Column({
-  //   type: "enum",
-  //   enum: VerificationDocumentType,
-  //   default: "OTHER",
-  // })
-  // verificationDocument: VerificationDocumentType;
 
-  @OneToOne(() => Media, (media) => media.userVerificationImage)
-  verificationDocumentImage: Media;
-
-  @OneToOne(() => Business, (business) => business.owner)
+  @OneToOne(() => Business, (business) => business.ownerId)
   business: Business;
 
   @OneToMany(() => Token, (token) => token.user)

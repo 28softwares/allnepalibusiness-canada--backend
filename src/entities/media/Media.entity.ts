@@ -26,8 +26,8 @@ export class Media extends CommonEntity {
   @OneToOne(() => Business, (business) => business.coverImage)
   businessCover: string;
 
-  @OneToOne(() => User, (user) => user.verificationDocumentImage)
-  userVerificationImage: string;
+  @OneToOne(() => Business, (business) => business.ownerVerificationDocument)
+  ownerVerificationDocument: string;
 
   @AfterLoad()
   updateMediaPath() {

@@ -75,6 +75,13 @@ export class Business extends CommonEntity {
     linkedin: string;
   };
 
+
+  @OneToOne(() => User, (user) => user.business)
+  ownerId: string;
+
+  @OneToOne(() => Media, (media) => media.ownerVerificationDocument)
+  ownerVerificationDocument: Media;
+
   @OneToOne(() => Media, (media) => media.businessLogo)
   logo: Media;
 
@@ -83,7 +90,4 @@ export class Business extends CommonEntity {
 
   @OneToOne(() => Media, (media) => media.businessRegistrationDocument)
   businessRegistrationDocument: Media;
-
-  @OneToOne(() => User, (user) => user.business)
-  owner: User;
 }
