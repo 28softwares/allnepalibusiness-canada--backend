@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
 import { Media } from "../media/Media.entity";
 import { User } from "../user/User.entity";
@@ -77,6 +77,7 @@ export class Business extends CommonEntity {
 
 
   @OneToOne(() => User, (user) => user.business)
+  @JoinColumn()
   owner: User;
 
   @OneToOne(() => Media, (media) => media.ownerVerificationDocument)
