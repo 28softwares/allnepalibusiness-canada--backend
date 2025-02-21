@@ -44,13 +44,13 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AppResponse__token-any__": {
+    "AppResponse__token-any--refershToken-any__": {
         "dataType": "refObject",
         "properties": {
             "statusCode": {"dataType":"double","required":true},
             "status": {"ref":"AppResponseStatusEnum","required":true},
             "message": {"dataType":"string","required":true},
-            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"token":{"dataType":"any","required":true}}},
+            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"refershToken":{"dataType":"any","required":true},"token":{"dataType":"any","required":true}}},
         },
         "additionalProperties": false,
     },

@@ -73,7 +73,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AppResponse__token-any__": {
+			"AppResponse__token-any--refershToken-any__": {
 				"properties": {
 					"statusCode": {
 						"type": "number",
@@ -87,9 +87,11 @@
 					},
 					"data": {
 						"properties": {
+							"refershToken": {},
 							"token": {}
 						},
 						"required": [
+							"refershToken",
 							"token"
 						],
 						"type": "object"
@@ -381,7 +383,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AppResponse__token-any__"
+									"$ref": "#/components/schemas/AppResponse__token-any--refershToken-any__"
 								}
 							}
 						}
