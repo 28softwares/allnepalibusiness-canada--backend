@@ -31,8 +31,9 @@ export class DotEnvConfig {
 
     // SECRETS
     static JWT_SECRET = process.env.JWT_SECRET as jwt.Secret;
-    static JWT_SECRET_REFRESH = process.env.JWT_SECRET_REFRESH as string;
     static JWT_EXPIRY = process.env.JWT_EXPIRY as JwtPayload['exp'];
+    static JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET as jwt.Secret;
+    static JWT_REFRESH_EXPIRY = process.env.JWT_REFRESH_EXPIRY as JwtPayload['exp'];
     static STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY as string;
     static STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET as string;
     static ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
