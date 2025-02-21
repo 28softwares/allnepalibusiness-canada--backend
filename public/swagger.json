@@ -463,6 +463,58 @@
 				}
 			}
 		},
+		"/su/login": {
+			"post": {
+				"operationId": "AdminLogin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"refreshToken": {},
+										"token": {}
+									},
+									"required": [
+										"refreshToken",
+										"token"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/media": {
 			"post": {
 				"operationId": "Upload",

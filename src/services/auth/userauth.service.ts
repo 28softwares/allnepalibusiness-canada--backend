@@ -4,7 +4,6 @@ import { User } from "../../entities/user/User.entity";
 import { AppError } from "../../utils/appError.util";
 import { AppResponse } from "../../utils/appResponse.util";
 import BcryptService from "../../utils/bcrypt.util";
-import jwt from "jsonwebtoken"
 import otpService from "./otp.service";
 import { OTP } from "../../entities/otp/otp.entity";
 import emailUtil, { MailType } from "../../utils/email.util";
@@ -39,8 +38,6 @@ class UserAuthService {
       throw new Error;
     }
   }
-
-
 
   async login(email: string, password: string) {
     const user = await User.findOne({ where: { email }, select: ['password', 'id'] });

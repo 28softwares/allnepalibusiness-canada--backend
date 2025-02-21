@@ -6,6 +6,8 @@ import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { UserAuthController } from './../controllers/auth/userAuth.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { AdminAuthController } from './../controllers/auth/adminAuth.controller';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { MediaController } from './../controllers/media/Media.controller';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { BusinessController } from './../controllers/business/Business.controller';
@@ -214,6 +216,36 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
 
               await templateService.apiHandler({
                 methodName: 'verifyAccount',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsAdminAuthController_adminLogin: Record<string, TsoaRoute.ParameterSchema> = {
+                admin: {"in":"body","name":"admin","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"email":{"dataType":"string","required":true}}},
+        };
+        app.post('/api/v1/su/login',
+            ...(fetchMiddlewares<RequestHandler>(AdminAuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AdminAuthController.prototype.adminLogin)),
+
+            async function AdminAuthController_adminLogin(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsAdminAuthController_adminLogin, request, response });
+
+                const controller = new AdminAuthController();
+
+              await templateService.apiHandler({
+                methodName: 'adminLogin',
                 controller,
                 response,
                 next,

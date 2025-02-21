@@ -5,13 +5,12 @@ import messages from '../constants/messages';
 import { AppError } from '../utils/appError.util';
 import { User } from '../entities/user/User.entity';
 import { Role } from '../constants/appConstants';
+import jwtService from '../services/auth/jwt.service';
 
 export function authMiddleware(role?: Role[]) {
     return async (req: Request, res: Response, next: NextFunction) => {
         const authHeader = req.get('Authorization');
         const token = authHeader?.split(' ')[1];
-
-        console.log('access token', token, '\n');
 
         interface JWTPayload {
             email: string;
@@ -41,7 +40,7 @@ export function authMiddleware(role?: Role[]) {
                 try {
                     const user = jwt.verify(
                         refreshToken,
-                        DotEnvConfig.JWT_SECRET_REFRESH,
+                        DotEnvConfig.JWT_REFRESH_SECRET,
                     ) as {
                         email: string;
                         userId: string;
