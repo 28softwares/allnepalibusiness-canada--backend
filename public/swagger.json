@@ -17,7 +17,7 @@
 				],
 				"type": "string"
 			},
-			"AppResponse__username-any--email-string__": {
+			"AppResponse__username-string--email-string__": {
 				"properties": {
 					"statusCode": {
 						"type": "number",
@@ -34,7 +34,9 @@
 							"email": {
 								"type": "string"
 							},
-							"username": {}
+							"username": {
+								"type": "string"
+							}
 						},
 						"required": [
 							"email",
@@ -53,7 +55,7 @@
 			},
 			"RegisterUserDTO": {
 				"properties": {
-					"username": {
+					"fullName": {
 						"type": "string"
 					},
 					"email": {
@@ -61,16 +63,12 @@
 					},
 					"password": {
 						"type": "string"
-					},
-					"verificationDocument": {
-						"type": "string"
 					}
 				},
 				"required": [
-					"username",
+					"fullName",
 					"email",
-					"password",
-					"verificationDocument"
+					"password"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -329,7 +327,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AppResponse__username-any--email-string__"
+									"$ref": "#/components/schemas/AppResponse__username-string--email-string__"
 								}
 							}
 						}

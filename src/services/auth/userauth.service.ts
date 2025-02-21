@@ -8,6 +8,7 @@ import BcryptService from "../../utils/bcrypt.util";
 import jwt from "jsonwebtoken"
 import otpService from "./otp.service";
 import { OTP } from "../../entities/otp/otp.entity";
+import emailUtil, { MailType } from "../../utils/email.util";
 
 class UserAuthService {
 
@@ -20,15 +21,18 @@ class UserAuthService {
       newUser.fullName = user.fullName;
       newUser.email = user.email;
       newUser.password = user.password;
+      await newUser.save();
 
       const otp = await otpService.generateOtp();
       const otpEntity = new OTP();
-      otpEntity.userId = newUser.id;
+      otpEntity.user = newUser;
       otpEntity.otp = otp;
       await otpEntity.save();
 
-      await newUser.save();
-      return AppResponse.success("User registration successful", { username: newUser.fullName, email: newUser.email })
+
+      await emailUtil.sendMail(newUser.email, MailType.NEW_OTP, otp, `Welcome to Nepali Rental Community in Canada, your OTP is ${otp}`);
+
+      return AppResponse.success("User registration successful. OTP for verification has been sent to your email.", { username: newUser.fullName, email: newUser.email })
 
     } catch (e) {
       console.error(e);

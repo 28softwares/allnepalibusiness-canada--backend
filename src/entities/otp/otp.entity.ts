@@ -4,9 +4,7 @@ import { User } from "../user/User.entity";
 
 @Entity()
 export class OTP extends CommonEntity {
-  @Column({
-    default: 0
-  })
+  @Column()
   otp: number;
 
 
@@ -23,6 +21,6 @@ export class OTP extends CommonEntity {
 
   @OneToOne(() => User, (user) => user.otp)
   @JoinColumn()
-  userId: string;
+  user: User
 
 }

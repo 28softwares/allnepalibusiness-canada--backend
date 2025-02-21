@@ -77,7 +77,7 @@ export class Business extends CommonEntity {
 
 
   @OneToOne(() => User, (user) => user.business)
-  ownerId: string;
+  owner: User;
 
   @OneToOne(() => Media, (media) => media.ownerVerificationDocument)
   ownerVerificationDocument: Media;

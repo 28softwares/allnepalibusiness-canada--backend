@@ -23,13 +23,13 @@ const models: TsoaRoute.Models = {
         "enums": ["success","error","TOKEN_UPDATED","TOKEN_EXPIRED","OTP_SENT"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AppResponse__username-any--email-string__": {
+    "AppResponse__username-string--email-string__": {
         "dataType": "refObject",
         "properties": {
             "statusCode": {"dataType":"double","required":true},
             "status": {"ref":"AppResponseStatusEnum","required":true},
             "message": {"dataType":"string","required":true},
-            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"username":{"dataType":"any","required":true}}},
+            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"username":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
@@ -37,10 +37,9 @@ const models: TsoaRoute.Models = {
     "RegisterUserDTO": {
         "dataType": "refObject",
         "properties": {
-            "username": {"dataType":"string","required":true},
+            "fullName": {"dataType":"string","required":true},
             "email": {"dataType":"string","required":true},
             "password": {"dataType":"string","required":true},
-            "verificationDocument": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },

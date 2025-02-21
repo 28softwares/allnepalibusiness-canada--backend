@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, OneToMany, OneToOne, Unique } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
 import { hashPassword } from "../../utils/crypto.util";
 import { Business } from "../business/Business.entity";
@@ -26,10 +26,10 @@ export class User extends CommonEntity {
   isVerified: boolean;
 
 
-  @OneToOne(() => Business, (business) => business.ownerId)
+  @OneToOne(() => Business, (business) => business.owner)
   business: Business;
 
-  @OneToOne(() => OTP, (otp) => otp.userId)
+  @OneToOne(() => OTP, (otp) => otp.user)
   otp: OTP
 
   @OneToMany(() => Token, (token) => token.user)
