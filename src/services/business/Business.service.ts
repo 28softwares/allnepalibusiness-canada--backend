@@ -1,10 +1,13 @@
 import { CreateBusinessDTO } from "../../dtos/business/Business.dto";
 import { Business } from "../../entities/business/Business.entity";
 import { Media } from "../../entities/media/Media.entity";
+import { AppError } from "../../utils/appError.util";
 
 class BusinessService {
   async get() {
-    return await Business.find();
+    return await Business.find({
+      relations: ['businessRegistrationDocument', 'logo', 'coverImage', 'ownerVerificationDocument']
+    });
   }
 
   async create(data: CreateBusinessDTO) {
@@ -19,40 +22,43 @@ class BusinessService {
 
     const businessRegistrationDoc = await Media.findOne({
       where: {
-        businessRegistrationDocument: data.businessRegistrationDocument
+        id: data.businessRegistrationDocument
       },
+      relations: ['business']
     });
 
-    if (!businessRegistrationDoc) return { message: "Business registration document not found" };
+    if (!businessRegistrationDoc) throw AppError.notFound("Business registration document not found");
     business.businessRegistrationDocument = businessRegistrationDoc;
 
     const businessLogo = await Media.findOne({
       where: {
-        businessLogo: data.logo,
+        id: data.logo
       },
+      relations: ['business']
     });
 
-    if (!businessLogo) return { message: "Business logo not found" };
+    if (!businessLogo) throw AppError.notFound("Business logo not found");
     business.logo = businessLogo;
 
     const businessCoverPhoto = await Media.findOne({
       where: {
-        businessCover: data.coverImage,
+        id: data.coverImage
       },
+      relations: ['business']
     });
 
-    if (!businessCoverPhoto)
-      return { message: "Business cover photo not found" };
+    if (!businessCoverPhoto) throw AppError.notFound("Business cover photo not found");
     business.coverImage = businessCoverPhoto;
 
-    // const ownerIDDoc = await Media.findOne({
-    //   where: {
-    //     id: data.owner.verificationDocument,
-    //   },
-    // });
+    const ownerVerificationDocument = await Media.findOne({
+      where: {
+        id: data.ownerVerificationDocument
+      },
+      relations: ['business']
+    });
 
-    // if (!ownerIDDoc) return { message: "Owner ID document not found" };
-    // business.owner.verificationDocument = ownerIDDoc;
+    if (!ownerVerificationDocument) throw AppError.notFound("Owner verification document not found")
+    business.ownerVerificationDocument = ownerVerificationDocument;
 
     await business.save();
 

@@ -99,12 +99,15 @@ export class CreateBusinessDTO {
   @IsNotEmpty()
   businessRegistrationDocument: string;
 
+  @IsString()
+  @IsNotEmpty()
+  ownerVerificationDocument: string;
+
   @IsNotEmpty()
   logo: string;
 
   @IsNotEmpty()
   coverImage: string;
-
 
   @IsOptional()
   visibility: {
