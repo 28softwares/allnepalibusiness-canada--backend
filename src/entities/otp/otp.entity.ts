@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
 import { User } from "../user/User.entity";
 
@@ -7,20 +7,16 @@ export class OTP extends CommonEntity {
   @Column()
   otp: number;
 
-
-  @Column({
-    default: new Date(Date.now())
-  })
-  iat: Date;
-
-
-  @Column({
-    default: new Date(Date.now() + 1000 * 60 * 2)
-  })
-  exp: Date
+  @Column()
+  exp: Date;
 
   @OneToOne(() => User, (user) => user.otp)
   @JoinColumn()
   user: User
+
+  @BeforeInsert()
+  setExpiration() {
+    this.exp = new Date(Date.now() + 1000 * 60 * 2); //expires in 2 minutes
+  }
 
 }

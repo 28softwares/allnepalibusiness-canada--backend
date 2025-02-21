@@ -54,9 +54,28 @@ class UserAuthService {
   }
 
 
-  async verifyOtp({ otp }: { otp: number }) {
+  async verifyOtp({ email, otp }: { email: string, otp: number }) {
+    const user = await User.findOne({ where: { email }, select: ['otp'] });
+    if (!user) throw AppError.notFound("User not found");
 
+    if (user.isVerified) throw AppError.conflict("User is already verified!");
 
+    const dbOtp = await OTP.findOne({
+      where: {
+        user: { id: user.id },
+      }
+    });
+
+    if (!dbOtp) throw AppError.notFound("OTP not found");
+
+    if (dbOtp.otp !== otp) throw AppError.unAuthorized("Invalid OTP");
+
+    if (dbOtp.exp < new Date()) throw AppError.unAuthorized("OTP expired");
+
+    user.isVerified = true;
+    await user.save();
+
+    return AppResponse.success("OTP verified successfully");
   }
 }
 

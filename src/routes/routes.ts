@@ -55,6 +55,17 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "AppResponse_unknown_": {
+        "dataType": "refObject",
+        "properties": {
+            "statusCode": {"dataType":"double","required":true},
+            "status": {"ref":"AppResponseStatusEnum","required":true},
+            "message": {"dataType":"string","required":true},
+            "data": {"dataType":"any"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "MediaType": {
         "dataType": "refEnum",
         "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT"],
@@ -173,6 +184,36 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
 
               await templateService.apiHandler({
                 methodName: 'login',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsUserAuthController_verifyAccount: Record<string, TsoaRoute.ParameterSchema> = {
+                user: {"in":"body","name":"user","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"otp":{"dataType":"double","required":true},"email":{"dataType":"string","required":true}}},
+        };
+        app.post('/api/v1/auth/verify',
+            ...(fetchMiddlewares<RequestHandler>(UserAuthController)),
+            ...(fetchMiddlewares<RequestHandler>(UserAuthController.prototype.verifyAccount)),
+
+            async function UserAuthController_verifyAccount(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsUserAuthController_verifyAccount, request, response });
+
+                const controller = new UserAuthController();
+
+              await templateService.apiHandler({
+                methodName: 'verifyAccount',
                 controller,
                 response,
                 next,
