@@ -476,6 +476,9 @@
 						}
 					}
 				},
+				"tags": [
+					"Business"
+				],
 				"security": [],
 				"parameters": [],
 				"requestBody": {
