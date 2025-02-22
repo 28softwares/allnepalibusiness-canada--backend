@@ -46,24 +46,24 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AppResponse__token-any--refershToken-any__": {
+    "AppResponse__status-string__": {
         "dataType": "refObject",
         "properties": {
             "statusCode": {"dataType":"double","required":true},
             "status": {"ref":"AppResponseStatusEnum","required":true},
             "message": {"dataType":"string","required":true},
-            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"refershToken":{"dataType":"any","required":true},"token":{"dataType":"any","required":true}}},
+            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"status":{"dataType":"string","required":true}}},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AppResponse_unknown_": {
+    "AppResponse__token-any--refreshToken-any__": {
         "dataType": "refObject",
         "properties": {
             "statusCode": {"dataType":"double","required":true},
             "status": {"ref":"AppResponseStatusEnum","required":true},
             "message": {"dataType":"string","required":true},
-            "data": {"dataType":"any"},
+            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"refreshToken":{"dataType":"any","required":true},"token":{"dataType":"any","required":true}}},
         },
         "additionalProperties": false,
     },

@@ -8,6 +8,8 @@ import otpService from "./otp.service";
 import { OTP } from "../../entities/otp/otp.entity";
 import emailUtil, { MailType } from "../../utils/email.util";
 import jwtService from "./jwt.service";
+import AppDataSource from "../../config/database.config";
+import exp from "constants";
 
 class UserAuthService {
 
@@ -40,21 +42,46 @@ class UserAuthService {
   }
 
   async login(email: string, password: string) {
-    const user = await User.findOne({ where: { email }, select: ['password', 'id'] });
+    const user = await User.findOne({ where: { email }, select: ['password', 'email', 'id', 'isVerified'] });
     if (!user) throw AppError.notFound("User not found");
 
     const passwordMatch = await BcryptService.compare(password, user.password);
     if (!passwordMatch) throw AppError.unAuthorized("Invalid credentials");
 
+    if (!user.isVerified) {
+      let dbOtp = await OTP.findOne({
+        where: {
+          user: { id: user.id },
+        }
+      });
+
+      let otp = dbOtp?.otp || await otpService.generateOtp();
+
+      if (!dbOtp) {
+        dbOtp = new OTP();
+        dbOtp.user = user;
+        dbOtp.otp = otp;
+        dbOtp.exp = new Date(Date.now() + 1000 * 60 * 2);
+        await dbOtp.save();
+      } else if (dbOtp.exp < new Date()) {
+        dbOtp.otp = otp;  //assign same old otp but increase the expiry
+        dbOtp.exp = new Date(Date.now() + 1000 * 60 * 2);
+        await dbOtp.save();
+      }
+
+      await emailUtil.sendMail(user.email, MailType.NEW_OTP, otp, `Verify your email to continue, your OTP is ${otp}`);
+      return AppResponse.success("Please verify your email to continue. OTP sent to your email", {
+        status: "OTP_NOT_VERIFIED",
+      });
+    }
     const token = await jwtService.assignAccessToken(user.id);
     const refreshToken = await jwtService.assignRefreshToken(user.id);
 
-    return AppResponse.success("User login successful", { token: token, refershToken: refreshToken })
+    return AppResponse.success("User login successful", { token: token, refreshToken: refreshToken })
   }
 
-
   async verifyOtp({ email, otp }: { email: string, otp: number }) {
-    const user = await User.findOne({ where: { email }, select: ['otp'] });
+    const user = await User.findOne({ where: { email }, select: ['otp', 'isVerified', 'id'] });
     if (!user) throw AppError.notFound("User not found");
 
     if (user.isVerified) throw AppError.conflict("User is already verified!");
@@ -74,7 +101,10 @@ class UserAuthService {
     user.isVerified = true;
     await user.save();
 
-    return AppResponse.success("OTP verified successfully");
+    const token = await jwtService.assignAccessToken(user.id);
+    const refreshToken = await jwtService.assignRefreshToken(user.id);
+
+    return AppResponse.success("OTP verified successfully", { token: token, refreshToken: refreshToken });
   }
 }
 

@@ -73,7 +73,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AppResponse__token-any--refershToken-any__": {
+			"AppResponse__status-string__": {
 				"properties": {
 					"statusCode": {
 						"type": "number",
@@ -87,12 +87,12 @@
 					},
 					"data": {
 						"properties": {
-							"refershToken": {},
-							"token": {}
+							"status": {
+								"type": "string"
+							}
 						},
 						"required": [
-							"refershToken",
-							"token"
+							"status"
 						],
 						"type": "object"
 					}
@@ -105,7 +105,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AppResponse_unknown_": {
+			"AppResponse__token-any--refreshToken-any__": {
 				"properties": {
 					"statusCode": {
 						"type": "number",
@@ -117,7 +117,17 @@
 					"message": {
 						"type": "string"
 					},
-					"data": {}
+					"data": {
+						"properties": {
+							"refreshToken": {},
+							"token": {}
+						},
+						"required": [
+							"refreshToken",
+							"token"
+						],
+						"type": "object"
+					}
 				},
 				"required": [
 					"statusCode",
@@ -821,7 +831,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AppResponse__token-any--refershToken-any__"
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/AppResponse__status-string__"
+										},
+										{
+											"$ref": "#/components/schemas/AppResponse__token-any--refreshToken-any__"
+										}
+									]
 								}
 							}
 						}
@@ -865,7 +882,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AppResponse_unknown_"
+									"$ref": "#/components/schemas/AppResponse__token-any--refreshToken-any__"
 								}
 							}
 						}
