@@ -73,11 +73,6 @@ const models: TsoaRoute.Models = {
         "enums": ["BUSINESS_LOGO","BUSINESS_COVER","BUSINESS_REGISTRATION","OWNER_IDENTIFICATION_DOCUMENT"],
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "BusinessCategory": {
-        "dataType": "refEnum",
-        "enums": ["INSURANCE","FINANCE","HEALTHCARE","TECHNOLOGY","RETAIL","WHOLESALE"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "VisibilityStatus": {
         "dataType": "refEnum",
         "enums": ["PENDING","APPROVED","REJECTED"],
@@ -92,7 +87,7 @@ const models: TsoaRoute.Models = {
             "deletedAt": {"dataType":"datetime","required":true},
             "businessName": {"dataType":"string","required":true},
             "description": {"dataType":"string","required":true},
-            "category": {"ref":"BusinessCategory","required":true},
+            "category": {"dataType":"string","required":true},
             "website": {"dataType":"string","required":true},
             "visibility": {"dataType":"array","array":{"dataType":"nestedObjectLiteral","nestedProperties":{"remarks":{"dataType":"string","required":true},"status":{"ref":"VisibilityStatus","required":true}}},"required":true},
             "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"postalCode":{"dataType":"string","required":true},"province":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
@@ -230,7 +225,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "businessName": {"dataType":"string","required":true},
             "description": {"dataType":"string","required":true},
-            "category": {"ref":"BusinessCategory","required":true},
+            "category": {"dataType":"string","required":true},
             "website": {"dataType":"string","required":true},
             "businessContactInformation": {"dataType":"nestedObjectLiteral","nestedProperties":{"email":{"dataType":"string","required":true},"phone":{"dataType":"string","required":true}},"required":true},
             "address": {"dataType":"nestedObjectLiteral","nestedProperties":{"postalCode":{"dataType":"string","required":true},"province":{"dataType":"string","required":true},"city":{"dataType":"string","required":true},"street":{"dataType":"string","required":true}},"required":true},
@@ -238,7 +233,7 @@ const models: TsoaRoute.Models = {
             "ownerVerificationDocument": {"dataType":"string","required":true},
             "logo": {"dataType":"string","required":true},
             "coverImage": {"dataType":"string","required":true},
-            "visibility": {"dataType":"nestedObjectLiteral","nestedProperties":{"remarks":{"dataType":"string","required":true},"status":{"ref":"VisibilityStatus","required":true}},"required":true},
+            "visibility": {"dataType":"nestedObjectLiteral","nestedProperties":{"remarks":{"dataType":"string"},"status":{"ref":"VisibilityStatus"}}},
             "socialHandles": {"dataType":"nestedObjectLiteral","nestedProperties":{"youtube":{"dataType":"string","required":true},"linkedin":{"dataType":"string","required":true},"twitter":{"dataType":"string","required":true},"instagram":{"dataType":"string","required":true},"facebook":{"dataType":"string","required":true}},"required":true},
         },
         "additionalProperties": false,
@@ -452,7 +447,6 @@ export function RegisterRoutes(app: Router,opts?:{multer?:ReturnType<typeof mult
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         const argsBusinessController_getBusiness: Record<string, TsoaRoute.ParameterSchema> = {
-                req: {"in":"request","name":"req","required":true,"dataType":"object"},
         };
         app.get('/api/v1/business/all',
             ...(fetchMiddlewares<RequestHandler>(BusinessController)),

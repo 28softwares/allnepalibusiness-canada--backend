@@ -146,17 +146,6 @@
 				],
 				"type": "string"
 			},
-			"BusinessCategory": {
-				"enum": [
-					"INSURANCE",
-					"FINANCE",
-					"HEALTHCARE",
-					"TECHNOLOGY",
-					"RETAIL",
-					"WHOLESALE"
-				],
-				"type": "string"
-			},
 			"VisibilityStatus": {
 				"enum": [
 					"PENDING",
@@ -189,7 +178,7 @@
 						"type": "string"
 					},
 					"category": {
-						"$ref": "#/components/schemas/BusinessCategory"
+						"type": "string"
 					},
 					"website": {
 						"type": "string"
@@ -663,7 +652,7 @@
 						"type": "string"
 					},
 					"category": {
-						"$ref": "#/components/schemas/BusinessCategory"
+						"type": "string"
 					},
 					"website": {
 						"type": "string"
@@ -727,10 +716,6 @@
 								"$ref": "#/components/schemas/VisibilityStatus"
 							}
 						},
-						"required": [
-							"remarks",
-							"status"
-						],
 						"type": "object"
 					},
 					"socialHandles": {
@@ -772,7 +757,6 @@
 					"ownerVerificationDocument",
 					"logo",
 					"coverImage",
-					"visibility",
 					"socialHandles"
 				],
 				"type": "object",

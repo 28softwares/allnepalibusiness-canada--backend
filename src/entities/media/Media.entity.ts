@@ -15,19 +15,19 @@ export class Media extends CommonEntity {
   @Column({ type: "enum", enum: MediaType })
   type: MediaType;
 
-  @OneToOne(() => Business, (business) => business.businessRegistrationDocument)
+  @OneToOne(() => Business, (business) => business.businessRegistrationDocument, {onDelete: 'CASCADE'})
   @JoinColumn()
   businessRegistrationDocument: Business;
 
-  @OneToOne(() => Business, (business) => business)
+  @OneToOne(() => Business, (business) => business, {onDelete: 'CASCADE'})
   @JoinColumn()
   businessLogo: Business;
 
-  @OneToOne(() => Business, (business) => business.coverImage)
+  @OneToOne(() => Business, (business) => business.coverImage, {onDelete: 'CASCADE'})
   @JoinColumn()
   businessCover: Business;
 
-  @OneToOne(() => Business, (business) => business.ownerVerificationDocument)
+  @OneToOne(() => Business, (business) => business.ownerVerificationDocument, {onDelete: 'CASCADE'})
   @JoinColumn()
   ownerVerificationDocument: Business;
 

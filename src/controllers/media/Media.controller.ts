@@ -68,6 +68,16 @@ class MediaController extends Controller {
         fileSize = 1024 * 1024 * 1; // 1MB
         break;
 
+      case MediaType.BUSINESS_COVER:
+        acceptedExtensions = ['.jpeg', '.jpg', '.png'];
+        fileSize = 1024 * 1024 * 1; // 1MB
+        break;
+
+      case MediaType.BUSINESS_REGISTRATION:
+        acceptedExtensions = ['.jpeg', '.jpg', '.png'];
+        fileSize = 1024 * 1024 * 1; // 1MB
+        break;
+
       case MediaType.OWNER_IDENTIFICATION_DOCUMENT:
         acceptedExtensions = ['.jpeg', '.jpg', '.png'];
         fileSize = 1024 * 1024 * 2; // 2MB

@@ -6,11 +6,13 @@ import { AppError } from "../../utils/appError.util";
 class BusinessService {
   async get() {
     return await Business.find({
-      relations: ['businessRegistrationDocument', 'logo', 'coverImage', 'ownerVerificationDocument']
+      relations: ['businessRegistrationDocument', 'logo', 'coverImage', 'ownerVerificationDocument' ]
     });
   }
 
   async create(data: CreateBusinessDTO) {
+    console.warn("received data", data)
+
     const business = new Business();
     business.businessName = data.businessName;
     business.description = data.description;
@@ -24,7 +26,6 @@ class BusinessService {
       where: {
         id: data.businessRegistrationDocument
       },
-      relations: ['business']
     });
 
     if (!businessRegistrationDoc) throw AppError.notFound("Business registration document not found");
@@ -34,7 +35,6 @@ class BusinessService {
       where: {
         id: data.logo
       },
-      relations: ['business']
     });
 
     if (!businessLogo) throw AppError.notFound("Business logo not found");
@@ -44,7 +44,6 @@ class BusinessService {
       where: {
         id: data.coverImage
       },
-      relations: ['business']
     });
 
     if (!businessCoverPhoto) throw AppError.notFound("Business cover photo not found");
@@ -54,7 +53,6 @@ class BusinessService {
       where: {
         id: data.ownerVerificationDocument
       },
-      relations: ['business']
     });
 
     if (!ownerVerificationDocument) throw AppError.notFound("Owner verification document not found")

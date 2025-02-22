@@ -35,17 +35,21 @@ export class Business extends CommonEntity {
   @Column()
   description: string;
 
-  @Column({ type: "enum", enum: BusinessCategory })
-  category: BusinessCategory;
+  @Column()
+  category: string;
 
   @Column()
   website: string;
 
   @Column({
     type: "json",
+    default: [{
+      status: VisibilityStatus.PENDING,
+      remarks: "",
+    }],
   })
   visibility: {
-    status: VisibilityStatus;
+      status: VisibilityStatus,
     remarks: string;
   }[]
 

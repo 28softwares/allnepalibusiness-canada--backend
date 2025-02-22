@@ -1,13 +1,13 @@
 import {
   IsEmail,
-  IsEnum,
   IsJSON,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUrl,
 } from "class-validator";
-import { BusinessCategory, VisibilityStatus } from "../../entities/business/Business.entity";
+
+import { VisibilityStatus } from "../../entities/business/Business.entity";
 
 export class SocialHandlesDTO {
   @IsOptional()
@@ -67,8 +67,8 @@ export class CreateBusinessDTO {
   @IsString()
   description: string;
 
-  @IsEnum(BusinessCategory)
-  category: BusinessCategory;
+  @IsString()
+  category: string;
 
   @IsOptional()
   @IsUrl()
@@ -107,9 +107,9 @@ export class CreateBusinessDTO {
   coverImage: string;
 
   @IsOptional()
-  visibility: {
-    status: VisibilityStatus,
-    remarks: string
+  visibility?: {
+    status?: VisibilityStatus,
+    remarks?: string
   }
 
   // @IsNotEmpty()
