@@ -4,6 +4,8 @@ import express, { Application, json, urlencoded } from "express";
 import { rateLimit } from "express-rate-limit";
 import { RegisterRoutes } from "../routes/routes";
 import errorHandler from "./errorHandler.middleware";
+import swaggerUi from "swagger-ui-express"
+import swaggerDocument from "../../public/swagger.json";
 
 const middlewares = (app: Application) => {
   app.use(
@@ -25,16 +27,12 @@ const middlewares = (app: Application) => {
   app.use(json());
   app.use(express.static("public"));
 
-  const swaggerUi = require("swagger-ui-express");
-  const swaggerDocument = require("../../public/swagger.json");
-
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use("/swagger-json", (req, res) => {
     res.sendFile("public/swagger.json", { root: "." });
   });
 
   RegisterRoutes(app);
-  // @ts-ignore
   app.use(errorHandler);
 };
 

@@ -1,4 +1,4 @@
-import express, { Response as ExResponse, Request as ExRequest, urlencoded } from "express";
+import express, { urlencoded } from "express";
 import { RegisterRoutes } from '../routes/routes';
 import errorHandler from "./errorHandler.middleware";
 import { DotEnvConfig, Environment } from '../config/dotenv.config';

@@ -1,6 +1,5 @@
-import express, { json, urlencoded } from "express";
+import express from "express";
 import AppDataSource from "./config/database.config";
-import { RegisterRoutes } from "./routes/routes";
 import { DotEnvConfig } from "./config/dotenv.config";
 import { configMiddleware } from "./middlewares";
 

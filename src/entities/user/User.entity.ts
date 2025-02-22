@@ -1,11 +1,8 @@
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { CommonEntity } from "../common/CommonSchema.entity";
-import { hashPassword } from "../../utils/crypto.util";
 import { Business } from "../business/Business.entity";
 import { Token } from "../token/token.entity";
 import BcryptService from "../../utils/bcrypt.util";
-import { MediaType, VerificationDocumentType } from "../../constants/appConstants";
-import { Media } from "../media/Media.entity";
 import { OTP } from "../otp/otp.entity";
 
 @Entity()

@@ -1,4 +1,3 @@
-import { DotEnvConfig } from "../../config/dotenv.config";
 import { RegisterUserDTO } from "../../dtos/user/registerUser.dto";
 import { User } from "../../entities/user/User.entity";
 import { AppError } from "../../utils/appError.util";
@@ -8,8 +7,6 @@ import otpService from "./otp.service";
 import { OTP } from "../../entities/otp/otp.entity";
 import emailUtil, { MailType } from "../../utils/email.util";
 import jwtService from "./jwt.service";
-import AppDataSource from "../../config/database.config";
-import exp from "constants";
 
 class UserAuthService {
 
@@ -55,7 +52,7 @@ class UserAuthService {
         }
       });
 
-      let otp = dbOtp?.otp || await otpService.generateOtp();
+      const otp = dbOtp?.otp || await otpService.generateOtp();
 
       if (!dbOtp) {
         dbOtp = new OTP();

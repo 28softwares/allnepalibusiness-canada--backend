@@ -3,7 +3,7 @@ import { ValidateError } from 'tsoa';
 import multer from 'multer';
 import messages from '../constants/messages';
 import { QueryFailedError } from 'typeorm';
-import express, {Request, Response, NextFunction} from "express";
+import  {Request, Response, NextFunction} from "express";
 
 const errorHandler = (
     error: any,

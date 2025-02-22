@@ -5,12 +5,9 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
   IsUrl,
 } from "class-validator";
-
 import { BusinessCategory, VisibilityStatus } from "../../entities/business/Business.entity";
-import { User } from "../../entities/user/User.entity";
 
 export class SocialHandlesDTO {
   @IsOptional()

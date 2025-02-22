@@ -14,7 +14,7 @@ export class BusinessController extends Controller {
     return await BusinessService.create(body);
   }
   @Get("/all")
-  public async getBusiness(@Request() req: express.Request) {
+  public async getBusiness() {
     return await BusinessService.get();
   }
 }

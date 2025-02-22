@@ -1,5 +1,4 @@
 import { DotEnvConfig } from "../../config/dotenv.config";
-import { User } from "../../entities/user/User.entity";
 import jwt from "jsonwebtoken";
 import userService from "../user/user.service";
 
