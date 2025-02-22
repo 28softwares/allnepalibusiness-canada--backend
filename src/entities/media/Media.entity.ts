@@ -33,6 +33,6 @@ export class Media extends CommonEntity {
 
   @AfterLoad()
   updateMediaPath() {
-    this.name = `${DotEnvConfig.BASE_URL}/public/uploads/${this.name}`;
+    this.name = `${DotEnvConfig.BASE_URL}/uploads/${this.name}`;
   }
 }
