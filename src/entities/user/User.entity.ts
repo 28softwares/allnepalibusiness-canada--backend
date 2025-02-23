@@ -4,6 +4,7 @@ import { Business } from "../business/Business.entity";
 import { Token } from "../token/token.entity";
 import BcryptService from "../../utils/bcrypt.util";
 import { OTP } from "../otp/otp.entity";
+import { Payment } from "../payment/payment.entity";
 
 @Entity()
 export class User extends CommonEntity {
@@ -21,6 +22,10 @@ export class User extends CommonEntity {
     default: false
   })
   isVerified: boolean;
+
+
+  @OneToMany(() => Payment, (payment) => payment.user)
+  payments: Payment[];
 
 
   @OneToOne(() => Business, (business) => business.owner)

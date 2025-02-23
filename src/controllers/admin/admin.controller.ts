@@ -26,4 +26,10 @@ export class AdminController extends Controller {
   public async getPendingBusinesses(@Queries() searchQuery: SearchQuery) {
     return await adminService.getPendingBusinesses(searchQuery);
   }
+
+
+  @Get("/business/rejected")
+  public async getRejectedBusinesses(@Queries() searchQuery: SearchQuery) {
+    return await adminService.getRejectedBusinesses(searchQuery);
+  }
 }
