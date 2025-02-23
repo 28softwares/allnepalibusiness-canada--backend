@@ -42,7 +42,7 @@ export class Business extends CommonEntity {
   website: string;
 
   @Column({
-    type: "json",
+    type: "jsonb",
     default: [{
       status: VisibilityStatus.PENDING,
       remarks: "",

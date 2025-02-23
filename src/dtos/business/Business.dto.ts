@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   IsUrl,
+  IsUUID,
 } from "class-validator";
 
 import { VisibilityStatus } from "../../entities/business/Business.entity";
@@ -124,4 +125,8 @@ export class CreateBusinessDTO {
     linkedin?: string;
     youtube?: string;
   };
+
+  @IsNotEmpty()
+  @IsUUID()
+  ownerId: string;
 }

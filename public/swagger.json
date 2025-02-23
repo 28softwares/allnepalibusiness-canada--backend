@@ -733,6 +733,9 @@
 							}
 						},
 						"type": "object"
+					},
+					"ownerId": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -745,7 +748,40 @@
 					"businessRegistrationDocument",
 					"ownerVerificationDocument",
 					"logo",
-					"coverImage"
+					"coverImage",
+					"ownerId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ObjectLiteral": {
+				"description": "Interface of the simple literal object with any string keys.",
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {}
+			},
+			"UpdateResult": {
+				"description": "Result object returned by UpdateQueryBuilder execution.",
+				"properties": {
+					"raw": {
+						"description": "Raw SQL result returned by executed query."
+					},
+					"affected": {
+						"type": "number",
+						"format": "double",
+						"description": "Number of affected rows/documents\nNot all drivers support this"
+					},
+					"generatedMaps": {
+						"items": {
+							"$ref": "#/components/schemas/ObjectLiteral"
+						},
+						"type": "array",
+						"description": "Generated values returned by a database.\nHas entity-like structure (not just column database name and values)."
+					}
+				},
+				"required": [
+					"raw",
+					"generatedMaps"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1057,6 +1093,205 @@
 				},
 				"tags": [
 					"Business"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/business/update-status": {
+			"patch": {
+				"operationId": "UpdateBusinessStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"result": {
+											"$ref": "#/components/schemas/UpdateResult"
+										},
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"result",
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Business"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"remarks": {
+										"type": "string"
+									},
+									"status": {
+										"$ref": "#/components/schemas/VisibilityStatus"
+									},
+									"id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"remarks",
+									"status",
+									"id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/su/user": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/User"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin Routes"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/su/business": {
+			"get": {
+				"operationId": "GetAllBusinesses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Business"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin Routes"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/su/business/approved": {
+			"get": {
+				"operationId": "GetApprovedBusinesses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Business"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin Routes"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/su/business/pending": {
+			"get": {
+				"operationId": "GetPendingBusinesses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"pagination": {
+											"properties": {
+												"lastPage": {
+													"type": "number",
+													"format": "double"
+												},
+												"prevPage": {
+													"type": "number",
+													"format": "double"
+												},
+												"nextPage": {
+													"type": "number",
+													"format": "double"
+												},
+												"currentPage": {
+													"type": "number",
+													"format": "double"
+												},
+												"count": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"lastPage",
+												"prevPage",
+												"nextPage",
+												"currentPage",
+												"count"
+											],
+											"type": "object"
+										},
+										"data": {
+											"items": {},
+											"type": "array"
+										}
+									},
+									"required": [
+										"pagination",
+										"data"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Admin Routes"
 				],
 				"security": [],
 				"parameters": []

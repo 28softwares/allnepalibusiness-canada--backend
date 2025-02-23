@@ -3,7 +3,7 @@ import userauthService from "../../services/auth/userauth.service";
 import { RegisterUserDTO } from "../../dtos/user/registerUser.dto";
 
 @Route("/auth")
-@Tags("User")
+  @Tags("User Auth")
 export class UserAuthController extends Controller {
   @Post("/register")
   async register(@Body() user: RegisterUserDTO) {
