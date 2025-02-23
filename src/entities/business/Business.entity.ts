@@ -72,11 +72,12 @@ export class Business extends CommonEntity {
   };
 
   @Column({ nullable: true, type: "jsonb" })
-  socialHandles: {
-    facebook: string;
-    twitter: string;
-    instagram: string;
-    linkedin: string;
+  socialHandles?: {
+      facebook?: string;
+      twitter?: string;
+      instagram?: string;
+      linkedin?: string;
+      youtube?: string;
   };
 
 

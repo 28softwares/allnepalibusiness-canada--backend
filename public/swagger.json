@@ -241,6 +241,9 @@
 					},
 					"socialHandles": {
 						"properties": {
+							"youtube": {
+								"type": "string"
+							},
 							"linkedin": {
 								"type": "string"
 							},
@@ -254,12 +257,6 @@
 								"type": "string"
 							}
 						},
-						"required": [
-							"linkedin",
-							"instagram",
-							"twitter",
-							"facebook"
-						],
 						"type": "object"
 					},
 					"owner": {
@@ -290,7 +287,6 @@
 					"visibility",
 					"address",
 					"businessContactInformation",
-					"socialHandles",
 					"owner",
 					"ownerVerificationDocument",
 					"logo",
@@ -736,13 +732,6 @@
 								"type": "string"
 							}
 						},
-						"required": [
-							"youtube",
-							"linkedin",
-							"twitter",
-							"instagram",
-							"facebook"
-						],
 						"type": "object"
 					}
 				},
@@ -756,8 +745,7 @@
 					"businessRegistrationDocument",
 					"ownerVerificationDocument",
 					"logo",
-					"coverImage",
-					"socialHandles"
+					"coverImage"
 				],
 				"type": "object",
 				"additionalProperties": false

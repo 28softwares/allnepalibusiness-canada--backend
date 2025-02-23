@@ -117,11 +117,11 @@ export class CreateBusinessDTO {
 
   @IsOptional()
   @Object(() => SocialHandlesDTO)
-  socialHandles: {
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    linkedin: string;
-    youtube: string;
+  socialHandles?: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    linkedin?: string;
+    youtube?: string;
   };
 }
